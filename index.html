@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Hitung Jumlah Chat WhatsApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f3f4f6;
+      color: #111827;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+      padding: 24px 16px 40px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+      border: 1px solid #e5e7eb;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      margin: 0 0 8px;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type="file"] {
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .hint {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-bottom: 16px;
+    }
+
+    .status {
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+
+    .status.ok {
+      color: #16a34a;
+    }
+
+    .status.error {
+      color: #dc2626;
+    }
+
+    .results {
+      margin-top: 20px;
+      display: none;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-box {
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    th, td {
+      padding: 8px 10px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+    }
+
+    th {
+      background: #f9fafb;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) td {
+      background: #f9fafb;
+    }
+
+    .sender-col {
+      max-width: 260px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-left: 4px;
+    }
+
+    .footer-note {
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: #6b7280;
+    }
+
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: #ecfdf5;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #16a34a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="hero">
+        <div>
+          <h1>Hitung Jumlah Chat WhatsApp</h1>
+          <p class="subtitle">
+            Upload file <strong>export chat WhatsApp (.txt)</strong>, lalu sistem akan menghitung jumlah pesan dan statistik sederhananya.
+          </p>
+        </div>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          <span>Berjalan 100% di browser</span>
+        </div>
+      </div>
+
+      <div>
+        <label for="fileInput">Pilih file export chat (.txt)</label>
+        <input type="file" id="fileInput" accept=".txt" />
+        <p class="hint">
+          Cara export: di WhatsApp &gt; More/More options &gt; Export chat &gt; pilih <strong>Tanpa media</strong> &gt; kirim ke email/drive &gt; download file .txt, lalu upload di sini.
+        </p>
+      </div>
+
+      <div id="status" class="status"></div>
+
+      <div id="results" class="results">
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-label">Total pesan</div>
+            <div class="stat-value" id="totalMessages">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Jumlah pengirim unik</div>
+            <div class="stat-value" id="uniqueSenders">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Hari aktif</div>
+            <div class="stat-value" id="activeDays">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Rata-rata pesan / hari</div>
+            <div class="stat-value" id="avgPerDay">0</div>
+          </div>
+        </div>
+
+        <h2 style="font-size:1.1rem; margin-bottom:8px;">Pesan per pengirim</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nama pengirim</th>
+              <th>Jumlah pesan</th>
+              <th>Persentase</th>
+            </tr>
+          </thead>
+          <tbody id="senderTableBody">
+            <!-- diisi via JavaScript -->
+          </tbody>
+        </table>
+
+        <p class="footer-note">
+          Catatan: Deteksi pesan berdasarkan pola tanggal standar WhatsApp (mis. <code>01/01/21, 10.15 - Nama: Pesan</code>).
+          Baris lanjutan (pesan panjang multi-baris) tidak dihitung sebagai pesan baru.
+          Semua proses dilakukan secara lokal di browser, file kamu tidak di-upload ke server mana pun.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const statusEl = document.getElementById("status");
+    const resultsEl = document.getElementById("results");
+
+    const totalMessagesEl = document.getElementById("totalMessages");
+    const uniqueSendersEl = document.getElementById("uniqueSenders");
+    const activeDaysEl = document.getElementById("activeDays");
+    const avgPerDayEl = document.getElementById("avgPerDay");
+    const senderTableBody = document.getElementById("senderTableBody");
+
+    // Pola umum baris pesan WhatsApp:
+    // Contoh: "01/01/21, 10.15 - Nama: Pesan"
+    // atau   "01/01/2021, 10:15 - Nama: Pesan"
+    const messageLineRegex = /^(\d{1,2}\/\d{1,2}\/\d{2,4}),\s+(\d{1,2}[:.]\d{2})\s+-\s+(.*)$/;
+
+    fileInput.addEventListener("change", handleFileSelect);
+
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      clearResults();
+
+      if (!file) {
+        setStatus("Tidak ada file yang dipilih.", "error");
+        return;
+      }
+
+      if (!file.name.toLowerCase().endsWith(".txt")) {
+        setStatus("Harap pilih file .txt hasil export WhatsApp.", "error");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const text = e.target.result;
+        processChatText(text);
+      };
+      reader.onerror = function() {
+        setStatus("Gagal membaca file. Coba lagi.", "error");
+      };
+
+      setStatus("Memproses file...", "");
+      reader.readAsText(file);
+    }
+
+    function setStatus(message, type) {
+      statusEl.textContent = message;
+      statusEl.className = "status";
+      if (type === "ok") statusEl.classList.add("ok");
+      if (type === "error") statusEl.classList.add("error");
+    }
+
+    function clearResults() {
+      resultsEl.style.display = "none";
+      senderTableBody.innerHTML = "";
+      totalMessagesEl.textContent = "0";
+      uniqueSendersEl.textContent = "0";
+      activeDaysEl.textContent = "0";
+      avgPerDayEl.textContent = "0";
+    }
+
+    function processChatText(text) {
+      if (!text || !text.trim()) {
+        setStatus("File kosong atau tidak bisa dibaca.", "error");
+        return;
+      }
+
+      const lines = text.split(/\r?\n/);
+
+      let totalMessages = 0;
+      const senderCounts = {};
+      const dateSet = new Set();
+
+      for (const line of lines) {
+        const match = line.match(messageLineRegex);
+        if (!match) {
+          // Bukan baris awal pesan (mungkin lanjutan pesan panjang atau info lain) -> lewati
+          continue;
+        }
+
+        totalMessages++;
+
+        const dateStr = match[1]; // "dd/mm/yy" atau "dd/mm/yyyy"
+        dateSet.add(dateStr);
+
+        const rest = match[3]; // "Nama: Pesan" atau pesan sistem
+
+        let sender = "Sistem";
+        const colonIndex = rest.indexOf(":");
+        if (colonIndex !== -1) {
+          sender = rest.slice(0, colonIndex).trim();
+        }
+
+        if (!senderCounts[sender]) {
+          senderCounts[sender] = 0;
+        }
+        senderCounts[sender]++;
+      }
+
+      if (totalMessages === 0) {
+        setStatus(
+          "Tidak ditemukan baris pesan dengan format standar WhatsApp. Pastikan ini benar-benar file export chat.",
+          "error"
+        );
+        return;
+      }
+
+      const activeDays = dateSet.size;
+      const avgPerDay = activeDays > 0 ? totalMessages / activeDays : 0;
+
+      // Update statistik di UI
+      totalMessagesEl.textContent = totalMessages.toLocaleString("id-ID");
+      uniqueSendersEl.textContent = Object.keys(senderCounts).length.toLocaleString("id-ID");
+      activeDaysEl.textContent = activeDays.toLocaleString("id-ID");
+      avgPerDayEl.textContent = avgPerDay.toFixed(1).replace(".", ",");
+
+      // Tampilkan tabel pengirim
+      const sortedSenders = Object.entries(senderCounts).sort((a, b) => b[1] - a[1]);
+
+      senderTableBody.innerHTML = "";
+      sortedSenders.forEach(([sender, count], index) => {
+        const percent = (count / totalMessages) * 100;
+
+        const tr = document.createElement("tr");
+
+        const tdIndex = document.createElement("td");
+        tdIndex.textContent = index + 1;
+
+        const tdSender = document.createElement("td");
+        tdSender.className = "sender-col";
+        tdSender.textContent = sender || "(Tanpa nama)";
+        if (sender === "Sistem") {
+          const tag = document.createElement("span");
+          tag.textContent = "system";
+          tag.className = "tag";
+          tdSender.appendChild(tag);
+        }
+
+        const tdCount = document.createElement("td");
+        tdCount.textContent = count.toLocaleString("id-ID");
+
+        const tdPercent = document.createElement("td");
+        tdPercent.textContent = percent.toFixed(1).replace(".", ",") + " %";
+
+        tr.appendChild(tdIndex);
+        tr.appendChild(tdSender);
+        tr.appendChild(tdCount);
+        tr.appendChild(tdPercent);
+
+        senderTableBody.appendChild(tr);
+      });
+
+      resultsEl.style.display = "block";
+      setStatus("Berhasil memproses file ✅", "ok");
+    }
+  </script>
+</body>
+</html>
