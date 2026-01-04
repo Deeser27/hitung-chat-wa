@@ -148,7 +148,7 @@
       box-shadow: var(--shadow-soft);
       position: relative;
       overflow: hidden;
-      transition: box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+      transition: box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease, transform 0.2s ease;
     }
 
     .card::before {
@@ -160,7 +160,19 @@
         radial-gradient(circle at bottom right, var(--hero-grad2), transparent 55%);
       opacity: 0.6;
       pointer-events: none;
-      transition: background 0.25s ease;
+      transition: opacity 0.25s ease, background 0.25s ease;
+      animation: floatGlow 12s ease-in-out infinite alternate;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translate3d(0,0,0) scale(1); opacity: 0.55; }
+      50% { transform: translate3d(-10px, 8px, 0) scale(1.05); opacity: 0.75; }
+      100% { transform: translate3d(10px, -6px, 0) scale(1.03); opacity: 0.6; }
     }
 
     .card-inner {
@@ -202,7 +214,11 @@
       font-weight: 600;
       color: var(--text-main);
       box-shadow: 0 12px 24px var(--btn-shadow);
-      transition: background 0.25s ease, box-shadow 0.25s ease;
+      transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.2s ease;
+    }
+
+    .logo:hover {
+      transform: translateY(-1px) rotate(-4deg);
     }
 
     .title-group h1 {
@@ -231,7 +247,7 @@
       font-size: 0.75rem;
       color: var(--text-soft);
       white-space: nowrap;
-      transition: background 0.25s ease, border-color 0.25s ease;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.15s ease;
     }
 
     .pill-dot {
@@ -239,6 +255,12 @@
       height: 8px;
       border-radius: 999px;
       background: #22c55e;
+      animation: blinkDot 1.4s ease-in-out infinite;
+    }
+
+    @keyframes blinkDot {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.2); opacity: 0.4; }
     }
 
     .btn-theme {
@@ -370,6 +392,14 @@
     .results {
       margin-top: 20px;
       display: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .results.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .results-header {
@@ -429,6 +459,29 @@
       border: 1px solid var(--border-soft);
       background: linear-gradient(135deg, var(--stat-grad1), var(--stat-grad2));
       padding: 9px 11px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .stat-card::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(circle at top right, rgba(248, 113, 170, 0.18), transparent 60%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+      border-color: var(--accent-strong);
+    }
+
+    .stat-card:hover::after {
+      opacity: 1;
     }
 
     .stat-label {
@@ -583,7 +636,16 @@
       justify-content: space-between;
       position: relative;
       overflow: hidden;
-      transition: background 0.25s ease;
+      transition: background 0.25s ease, transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .story-overlay.show .story-card {
+      animation: popStory 0.35s ease;
+    }
+
+    @keyframes popStory {
+      0% { transform: scale(0.9) translateY(12px); opacity: 0; }
+      100% { transform: scale(1) translateY(0); opacity: 1; }
     }
 
     .story-card::before {
@@ -647,11 +709,24 @@
     }
 
     .story-main-number {
-      font-size: 3.0rem;
+      font-size: 3.1rem;
       font-weight: 600;
-      margin-top: 8px;
+      margin-top: 14px;
       line-height: 1;
       text-shadow: 0 8px 24px rgba(15, 23, 42, 0.8);
+      position: relative;
+      display: inline-block;
+      padding: 4px 10px;
+    }
+
+    .story-main-number::before {
+      content: "";
+      position: absolute;
+      inset: -10px -16px;
+      background: radial-gradient(circle at center, rgba(248, 250, 252, 0.24), transparent 65%);
+      filter: blur(2px);
+      z-index: -1;
+      border-radius: 32px;
     }
 
     .story-main-label {
@@ -695,11 +770,12 @@
 
     .story-pill-main {
       border-radius: 20px;
-      background: rgba(248, 250, 252, 0.18);
-      border: 1px solid rgba(248, 250, 252, 0.8);
+      background: rgba(248, 250, 252, 0.2);
+      border: 1px solid rgba(248, 250, 252, 0.9);
       padding: 8px 12px;
       text-align: left;
       margin-bottom: 8px;
+      backdrop-filter: blur(8px);
     }
 
     .story-pill-label {
@@ -1048,7 +1124,7 @@
               </div>
             </div>
 
-            <!-- BAGIAN TENGAH STORY -->
+            <!-- TENGAH STORY: BULAN TER RAME & TOP 3 -->
             <div class="story-middle">
               <div class="story-pill-main">
                 <div class="story-pill-label">bulan ter rame</div>
@@ -1354,6 +1430,7 @@
       resultsSubtitleEl.textContent = "Statistik dihitung otomatis dari semua pengirim di chat ini.";
 
       resultsEl.style.display = "none";
+      resultsEl.classList.remove("show");
       setStatus("", "");
     }
 
@@ -1783,6 +1860,11 @@
       globalStats.filterSender = filterSender || null;
 
       resultsEl.style.display = "block";
+      // trigger animasi fade-in
+      setTimeout(function() {
+        resultsEl.classList.add("show");
+      }, 20);
+
       if (filterSender) {
         setStatus('Statistik untuk pengirim "' + filterSender + '" ✅', "ok");
       } else {
