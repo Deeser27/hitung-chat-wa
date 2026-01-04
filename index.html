@@ -12,7 +12,9 @@
 
   <style>
     :root {
+      /* THEME PINK (DEFAULT) */
       --bg: #fdf2f8;
+      --bg-hero: #f9a8d4;
       --card-bg: #ffffff;
       --border: #fbcfe8;
       --border-soft: #f9a8d4;
@@ -22,13 +24,95 @@
       --text-main: #3b0f2f;
       --text-soft: #be185d;
       --text-muted: #9f1239;
-      --danger: #e11d48;
-      --danger-soft: #ffe4e6;
+      --danger: #b91c1c;
+      --danger-soft: #fee2e2;
       --success: #16a34a;
       --success-soft: #dcfce7;
       --radius-lg: 22px;
       --radius-md: 12px;
       --shadow-soft: 0 16px 40px rgba(190, 24, 93, 0.20);
+
+      --hero-grad1: rgba(251, 207, 232, 0.9);
+      --hero-grad2: rgba(251, 113, 133, 0.35);
+      --logo-grad1: #fff1f2;
+      --logo-grad2: #fb7185;
+
+      --pill-bg: #ffe4e6;
+      --pill-border: #f8bbd0;
+
+      --hint-bg: #ffe4e6;
+      --hint-border: #fecdd3;
+
+      --btn-grad1: #fb7185;
+      --btn-grad2: #ec4899;
+      --btn-shadow: rgba(244, 63, 94, 0.40);
+
+      --stat-grad1: #fff1f2;
+      --stat-grad2: #fdf2f8;
+
+      --chart-bg: #fff1f2;
+
+      --table-alt-bg: #fff7fb;
+      --table-header-bg: #fdf2f8;
+
+      --story-bg1: #fb7185;
+      --story-bg2: #ec4899;
+      --story-bg3: #9f1239;
+      --story-orb1: rgba(254, 202, 202, 0.8);
+      --story-orb2: rgba(251, 113, 133, 0.45);
+      --story-orb3: rgba(251, 113, 133, 0.25);
+      --overlay-bg: rgba(24, 0, 20, 0.55);
+    }
+
+    /* THEME BIRU (MODE ALTERNATIF) */
+    body.theme-blue {
+      --bg: #eff6ff;
+      --bg-hero: #bfdbfe;
+      --card-bg: #ffffff;
+      --border: #bfdbfe;
+      --border-soft: #93c5fd;
+      --accent: #2563eb;
+      --accent-soft: #eff6ff;
+      --accent-strong: #1d4ed8;
+      --text-main: #0f172a;
+      --text-soft: #1d4ed8;
+      --text-muted: #64748b;
+      --danger: #b91c1c;
+      --danger-soft: #fee2e2;
+      --success: #16a34a;
+      --success-soft: #dcfce7;
+      --shadow-soft: 0 16px 40px rgba(37, 99, 235, 0.25);
+
+      --hero-grad1: rgba(191, 219, 254, 0.9);
+      --hero-grad2: rgba(129, 140, 248, 0.35);
+      --logo-grad1: #e0f2fe;
+      --logo-grad2: #3b82f6;
+
+      --pill-bg: #e0f2fe;
+      --pill-border: #bfdbfe;
+
+      --hint-bg: #e0f2fe;
+      --hint-border: #bfdbfe;
+
+      --btn-grad1: #3b82f6;
+      --btn-grad2: #6366f1;
+      --btn-shadow: rgba(37, 99, 235, 0.45);
+
+      --stat-grad1: #eff6ff;
+      --stat-grad2: #dbeafe;
+
+      --chart-bg: #eff6ff;
+
+      --table-alt-bg: #f8fafc;
+      --table-header-bg: #eff6ff;
+
+      --story-bg1: #60a5fa;
+      --story-bg2: #2563eb;
+      --story-bg3: #1d4ed8;
+      --story-orb1: rgba(191, 219, 254, 0.8);
+      --story-orb2: rgba(129, 140, 248, 0.45);
+      --story-orb3: rgba(59, 130, 246, 0.25);
+      --overlay-bg: rgba(15, 23, 42, 0.6);
     }
 
     * { box-sizing: border-box; }
@@ -42,12 +126,13 @@
     body {
       font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top, #f9a8d4 0, transparent 60%),
+        radial-gradient(circle at top, var(--bg-hero) 0, transparent 60%),
         var(--bg);
       color: var(--text-main);
       display: flex;
       justify-content: center;
       padding: 24px 12px 40px;
+      transition: background 0.25s ease;
     }
 
     .container {
@@ -63,6 +148,7 @@
       box-shadow: var(--shadow-soft);
       position: relative;
       overflow: hidden;
+      transition: box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
     }
 
     .card::before {
@@ -70,10 +156,11 @@
       position: absolute;
       inset: -40%;
       background:
-        radial-gradient(circle at top left, rgba(251, 207, 232, 0.9), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(251, 113, 133, 0.35), transparent 55%);
+        radial-gradient(circle at top left, var(--hero-grad1), transparent 55%),
+        radial-gradient(circle at bottom right, var(--hero-grad2), transparent 55%);
       opacity: 0.6;
       pointer-events: none;
+      transition: background 0.25s ease;
     }
 
     .card-inner {
@@ -96,18 +183,26 @@
       gap: 10px;
     }
 
+    .header-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
     .logo {
       width: 38px;
       height: 38px;
       border-radius: 14px;
-      background: radial-gradient(circle at 30% 0, #fff1f2, #fb7185);
+      background: radial-gradient(circle at 30% 0, var(--logo-grad1), var(--logo-grad2));
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 0.9rem;
       font-weight: 600;
-      color: #881337;
-      box-shadow: 0 12px 24px rgba(244, 63, 94, 0.45);
+      color: var(--text-main);
+      box-shadow: 0 12px 24px var(--btn-shadow);
+      transition: background 0.25s ease, box-shadow 0.25s ease;
     }
 
     .title-group h1 {
@@ -131,11 +226,12 @@
       gap: 6px;
       padding: 6px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(248, 187, 208, 0.9);
-      background: rgba(255, 241, 242, 0.9);
+      border: 1px solid var(--pill-border);
+      background: var(--pill-bg);
       font-size: 0.75rem;
       color: var(--text-soft);
       white-space: nowrap;
+      transition: background 0.25s ease, border-color 0.25s ease;
     }
 
     .pill-dot {
@@ -143,6 +239,31 @@
       height: 8px;
       border-radius: 999px;
       background: #22c55e;
+    }
+
+    .btn-theme {
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: var(--accent-soft);
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      color: var(--accent-strong);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: background 0.2s ease, transform 0.08s ease, box-shadow 0.1s ease;
+    }
+
+    .btn-theme:hover {
+      background: var(--border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      transform: translateY(-1px);
+    }
+
+    .btn-theme:active {
+      transform: translateY(1px);
+      box-shadow: none;
     }
 
     .section { margin-top: 18px; }
@@ -157,7 +278,7 @@
 
     .section label code {
       font-size: 0.8rem;
-      background: #fee2e2;
+      background: var(--pill-bg);
       border-radius: 8px;
       padding: 2px 6px;
     }
@@ -178,26 +299,26 @@
       padding: 9px 16px;
       border-radius: 999px;
       border: none;
-      background: linear-gradient(135deg, #fb7185, #ec4899);
+      background: linear-gradient(135deg, var(--btn-grad1), var(--btn-grad2));
       color: #fdf2f8;
       font-size: 0.9rem;
       font-weight: 500;
       cursor: pointer;
       transition: background 0.15s ease, transform 0.08s ease, box-shadow 0.1s ease;
-      box-shadow: 0 8px 22px rgba(244, 63, 94, 0.40);
+      box-shadow: 0 8px 22px var(--btn-shadow);
     }
 
     .btn-upload span.icon { font-size: 1rem; }
 
     .btn-upload:hover {
-      background: linear-gradient(135deg, #f97373, #db2777);
-      box-shadow: 0 10px 26px rgba(236, 72, 153, 0.45);
+      filter: brightness(1.05);
+      box-shadow: 0 10px 26px var(--btn-shadow);
       transform: translateY(-1px);
     }
 
     .btn-upload:active {
       transform: translateY(1px);
-      box-shadow: 0 4px 16px rgba(244, 63, 94, 0.35);
+      box-shadow: 0 4px 16px var(--btn-shadow);
     }
 
     .filename {
@@ -219,10 +340,10 @@
     .hint code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 0.75rem;
-      background: #ffe4e6;
+      background: var(--hint-bg);
       padding: 2px 5px;
       border-radius: 6px;
-      border: 1px solid #fecdd3;
+      border: 1px solid var(--hint-border);
     }
 
     .status {
@@ -256,7 +377,7 @@
       justify-content: space-between;
       gap: 8px;
       flex-wrap: wrap;
-      align-items: baseline;
+      align-items: center;
       margin-bottom: 10px;
     }
 
@@ -270,6 +391,30 @@
     .results-header small {
       font-size: 0.75rem;
       color: var(--text-muted);
+      display: block;
+    }
+
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .filter-row label {
+      font-weight: 500;
+    }
+
+    .filter-row select {
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      background: var(--accent-soft);
+      padding: 4px 8px;
+      font-size: 0.78rem;
+      color: var(--text-main);
+      outline: none;
+      max-width: 180px;
     }
 
     .stats-grid {
@@ -281,8 +426,8 @@
 
     .stat-card {
       border-radius: var(--radius-md);
-      border: 1px solid rgba(251, 207, 232, 0.9);
-      background: linear-gradient(135deg, #fff1f2, #fdf2f8);
+      border: 1px solid var(--border-soft);
+      background: linear-gradient(135deg, var(--stat-grad1), var(--stat-grad2));
       padding: 9px 11px;
     }
 
@@ -302,8 +447,8 @@
       margin-top: 4px;
       margin-bottom: 10px;
       border-radius: 999px;
-      border: 1px solid #f9a8d4;
-      background: #fff1f2;
+      border: 1px solid var(--border-soft);
+      background: var(--accent-soft);
       color: var(--accent-strong);
       font-size: 0.8rem;
       padding: 7px 12px;
@@ -317,23 +462,25 @@
     .btn-story span.icon { font-size: 0.9rem; }
 
     .btn-story:hover {
-      background: #ffe4e6;
-      box-shadow: 0 4px 16px rgba(244, 63, 94, 0.2);
+      background: var(--border);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
       transform: translateY(-1px);
     }
 
     .chart-wrapper {
       border-radius: var(--radius-md);
       border: 1px solid var(--border-soft);
-      background: #fff1f2;
+      background: var(--chart-bg);
       padding: 10px;
       margin-bottom: 8px;
       max-height: 260px;
+      overflow-x: auto;
     }
 
     .chart-wrapper canvas {
       width: 100%;
       height: 220px;
+      min-width: 280px;
     }
 
     .table-wrapper {
@@ -354,20 +501,20 @@
     th, td {
       padding: 7px 8px;
       text-align: left;
-      border-bottom: 1px solid #fee2e2;
+      border-bottom: 1px solid #e5e7eb;
     }
 
     th {
       font-weight: 500;
       color: var(--text-muted);
-      background: #fdf2f8;
+      background: var(--table-header-bg);
       position: sticky;
       top: 0;
       z-index: 1;
     }
 
     tbody tr:nth-child(even) td {
-      background: #fff7fb;
+      background: var(--table-alt-bg);
     }
 
     .sender-col {
@@ -387,17 +534,17 @@
     .footer-note code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 0.74rem;
-      background: #ffe4e6;
+      background: var(--hint-bg);
       padding: 1px 4px;
       border-radius: 4px;
-      border: 1px solid #fecdd3;
+      border: 1px solid var(--hint-border);
     }
 
     /* Story overlay */
     .story-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(24, 0, 20, 0.55);
+      background: var(--overlay-bg);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -415,23 +562,28 @@
 
     .story-card-wrapper {
       text-align: center;
-      color: #fff1f2;
+      color: #fdf2f8;
+      max-width: 420px;
+      width: 100%;
     }
 
     .story-card {
-      width: min(360px, 90vw);
-      height: min(640px, 90vh);
+      width: 100%;
+      max-width: 360px;
+      margin: 0 auto 12px;
+      height: auto;
+      aspect-ratio: 9 / 16;
       border-radius: 32px;
       background:
-        radial-gradient(circle at top, #fb7185, #ec4899 50%, #9f1239 100%);
-      box-shadow: 0 24px 60px rgba(24, 0, 20, 0.8);
+        radial-gradient(circle at top, var(--story-bg1), var(--story-bg2) 50%, var(--story-bg3) 100%);
+      box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
       padding: 20px 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      margin: 0 auto 12px;
       position: relative;
       overflow: hidden;
+      transition: background 0.25s ease;
     }
 
     .story-card::before {
@@ -439,11 +591,12 @@
       position: absolute;
       inset: -15%;
       background:
-        radial-gradient(circle at top left, rgba(254, 202, 202, 0.8), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(251, 113, 133, 0.45), transparent 55%),
-        radial-gradient(circle at center, rgba(251, 113, 133, 0.25), transparent 65%);
+        radial-gradient(circle at top left, var(--story-orb1), transparent 55%),
+        radial-gradient(circle at bottom right, var(--story-orb2), transparent 55%),
+        radial-gradient(circle at center, var(--story-orb3), transparent 65%);
       opacity: 0.7;
       pointer-events: none;
+      transition: background 0.25s ease;
     }
 
     .story-inner {
@@ -460,7 +613,7 @@
       justify-content: space-between;
       align-items: center;
       font-size: 0.78rem;
-      color: #fee2e2;
+      color: #fde2f4;
     }
 
     .story-logo {
@@ -471,7 +624,7 @@
       height: 32px;
       border-radius: 999px;
       background: rgba(248, 250, 252, 0.16);
-      border: 1px solid rgba(248, 250, 252, 0.7);
+      border: 1px solid rgba(248, 250, 252, 0.8);
       font-size: 0.9rem;
       font-weight: 600;
     }
@@ -494,23 +647,23 @@
     }
 
     .story-main-number {
-      font-size: 3.2rem;
+      font-size: 3.0rem;
       font-weight: 600;
       margin-top: 8px;
       line-height: 1;
-      text-shadow: 0 8px 24px rgba(24, 0, 20, 0.75);
+      text-shadow: 0 8px 24px rgba(15, 23, 42, 0.8);
     }
 
     .story-main-label {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
       letter-spacing: 0.18em;
-      color: #fee2e2;
+      color: #ffe4f0;
       margin-top: 4px;
     }
 
     .story-row {
-      margin-top: 24px;
+      margin-top: 18px;
       display: flex;
       gap: 10px;
     }
@@ -531,14 +684,13 @@
 
     .story-chip-value {
       margin-top: 4px;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 600;
-      color: #fff1f2;
+      color: #f9fafb;
     }
 
-    /* BAGIAN TENGAH STORY */
     .story-middle {
-      margin-top: 18px;
+      margin-top: 16px;
     }
 
     .story-pill-main {
@@ -559,9 +711,9 @@
 
     .story-pill-value {
       margin-top: 3px;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       font-weight: 600;
-      color: #fff1f2;
+      color: #f9fafb;
     }
 
     .story-pill-caption {
@@ -616,9 +768,9 @@
     }
 
     .story-tagline {
-      margin-top: 10px;
+      margin-top: 8px;
       font-size: 0.75rem;
-      color: #fee2e2;
+      color: #ffe4f0;
       opacity: 0.9;
     }
 
@@ -639,23 +791,23 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      box-shadow: 0 6px 18px rgba(24, 0, 20, 0.4);
-      background: #fee2e2;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.5);
+      background: #ffe4f0;
       color: #9f1239;
     }
 
     .story-action-btn.secondary {
-      background: rgba(254, 242, 242, 0.9);
-      color: #9f1239;
+      background: rgba(249, 250, 251, 0.95);
+      color: #1e293b;
       box-shadow: none;
-      border: 1px solid #fecaca;
+      border: 1px solid #e5e7eb;
     }
 
     .story-action-btn span.icon { font-size: 0.9rem; }
 
     .story-helper-text {
       font-size: 0.75rem;
-      color: #fef2f2;
+      color: #fdf2f8;
       opacity: 0.9;
     }
 
@@ -676,14 +828,51 @@
         justify-content: center;
       }
 
+      .btn-story {
+        width: 100%;
+        justify-content: center;
+      }
+
       .stats-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .header {
+        align-items: flex-start;
+      }
+
+      .header-right {
+        align-items: flex-start;
+      }
+
+      .results-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .filter-row {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .filter-row select {
+        max-width: none;
+        flex: 1;
       }
     }
 
     @media (max-width: 430px) {
       .stats-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .story-card {
+        border-radius: 26px;
+        padding: 16px 14px;
+      }
+
+      .story-main-number {
+        font-size: 2.6rem;
       }
     }
   </style>
@@ -698,12 +887,15 @@
             <div class="logo">ni</div>
             <div class="title-group">
               <h1><span>ninu</span></h1>
-              <p>WhatsApp chat analyzer — hitung seberapa sering kalian chat 💌</p>
+              <p>WhatsApp chat analyzer — hitung seberapa sering kalian chat 💬</p>
             </div>
           </div>
-          <div class="pill">
-            <span class="pill-dot"></span>
-            <span>Semua proses di perangkat kamu</span>
+          <div class="header-right">
+            <div class="pill">
+              <span class="pill-dot"></span>
+              <span>Semua proses di perangkat kamu</span>
+            </div>
+            <button class="btn-theme" id="themeToggleBtn" type="button" onclick="toggleTheme()">💙 Mode biru</button>
           </div>
         </header>
 
@@ -730,8 +922,16 @@
         <!-- Results -->
         <section id="results" class="results">
           <div class="results-header">
-            <h2>Ringkasan</h2>
-            <small>Statistik dihitung otomatis dari file chat kamu.</small>
+            <div>
+              <h2>Ringkasan</h2>
+              <small id="resultsSubtitle">Statistik dihitung otomatis dari semua pengirim di chat ini.</small>
+            </div>
+            <div class="filter-row">
+              <label for="senderFilter">Filter:</label>
+              <select id="senderFilter">
+                <option value="__ALL__">Semua pengirim</option>
+              </select>
+            </div>
           </div>
 
           <div class="stats-grid">
@@ -759,6 +959,10 @@
               <div class="stat-label">Bulan paling rame</div>
               <div class="stat-value" id="busiestMonthValue">-</div>
             </article>
+            <article class="stat-card">
+              <div class="stat-label">Jam paling rame</div>
+              <div class="stat-value" id="busiestHourValue">-</div>
+            </article>
           </div>
 
           <button class="btn-story" type="button" onclick="openStoryView()">
@@ -767,8 +971,10 @@
           </button>
 
           <div class="results-header" style="margin-top: 8px;">
-            <h2>Aktivitas per hari</h2>
-            <small>Diagram garis jumlah pesan per tanggal</small>
+            <div>
+              <h2>Aktivitas per hari</h2>
+              <small>Diagram garis jumlah pesan per tanggal</small>
+            </div>
           </div>
 
           <div class="chart-wrapper">
@@ -778,8 +984,10 @@
           <p class="footer-note" id="busiestDayInfo" style="margin-top:4px;"></p>
 
           <div class="results-header" style="margin-top: 8px;">
-            <h2>Pesan per pengirim</h2>
-            <small>Lihat siapa yang paling bawel di chat 🤭</small>
+            <div>
+              <h2>Pesan per pengirim</h2>
+              <small id="tableSubtitle">Lihat siapa yang paling bawel di chat 🤭</small>
+            </div>
           </div>
 
           <div class="table-wrapper">
@@ -823,9 +1031,9 @@
             <div class="story-header">
               <span class="story-logo">ni</span>
               <span class="story-title">ninu stats</span>
-              <span class="story-header-emoji">💖</span>
+              <span class="story-header-emoji">✨</span>
             </div>
-            <div class="story-subtitle">Cerita chat kalian dalam angka ✨</div>
+            <div class="story-subtitle">Cerita chat kalian dalam angka 📊</div>
             <div class="story-main-number" id="storyTotal">0</div>
             <div class="story-main-label">total pesan</div>
 
@@ -843,7 +1051,7 @@
             <!-- BAGIAN TENGAH STORY -->
             <div class="story-middle">
               <div class="story-pill-main">
-                <div class="story-pill-label">bulan ini</div>
+                <div class="story-pill-label">bulan ter rame</div>
                 <div class="story-pill-value" id="storyMonthTotal">0</div>
                 <div class="story-pill-caption" id="storyMonthLabel">-</div>
               </div>
@@ -910,8 +1118,12 @@
     const currentMonthLabelEl = document.getElementById("currentMonthLabel");
     const currentMonthMessagesEl = document.getElementById("currentMonthMessages");
     const busiestMonthValueEl = document.getElementById("busiestMonthValue");
+    const busiestHourValueEl = document.getElementById("busiestHourValue");
     const senderTableBody = document.getElementById("senderTableBody");
     const busiestDayInfoEl = document.getElementById("busiestDayInfo");
+    const tableSubtitleEl = document.getElementById("tableSubtitle");
+    const senderFilterSelect = document.getElementById("senderFilter");
+    const resultsSubtitleEl = document.getElementById("resultsSubtitle");
 
     // Story elements
     const storyOverlay = document.getElementById("storyOverlay");
@@ -925,7 +1137,13 @@
     const storyMonthLabelEl = document.getElementById("storyMonthLabel");
     const storyTopListEl = document.getElementById("storyTopList");
 
+    const themeToggleBtn = document.getElementById("themeToggleBtn");
+
     let lineChart = null;
+
+    let rawChatText = "";
+    let senderList = [];
+    let currentFilterSender = "__ALL__";
 
     const globalStats = {
       total: 0,
@@ -938,10 +1156,12 @@
       currentMonthName: "",
       currentMonthTotal: 0,
       busiestMonthName: "",
-      busiestMonthCount: 0
+      busiestMonthCount: 0,
+      busiestHourLabel: "",
+      busiestHourCount: 0,
+      filterSender: null
     };
 
-    // Pola baris pesan WhatsApp yang umum
     const messagePatterns = [
       /^(\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}),?\s+(\d{1,2}[:.]\d{2}(?:\s?(?:AM|PM|am|pm))?)\s+-\s+(.*)$/,
       /^\[(\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}),\s+(\d{1,2}[:.]\d{2}(?:\s?(?:AM|PM|am|pm))?)\]\s+(.*)$/,
@@ -956,15 +1176,30 @@
       return null;
     }
 
+    // dd/mm/yyyy dan mm/dd/yyyy (heuristik sederhana)
     function parseDateString(dateStr) {
       const parts = dateStr.split(/[\/-]/);
       if (parts.length !== 3) return null;
-      const d = parseInt(parts[0], 10);
-      const m = parseInt(parts[1], 10);
+      const p0 = parseInt(parts[0], 10);
+      const p1 = parseInt(parts[1], 10);
       let y = parseInt(parts[2], 10);
-      if (!d || !m || !y) return null;
+      if (!p0 || !p1 || !y) return null;
+
+      let day, month;
+      if (p1 > 12 && p0 <= 12) {
+        // format mm/dd
+        month = p0;
+        day = p1;
+      } else {
+        // default dd/mm
+        day = p0;
+        month = p1;
+      }
+
       if (y < 100) y += 2000;
-      return { day: d, month: m, year: y };
+      if (month < 1 || month > 12 || day < 1 || day > 31) return null;
+
+      return { day, month, year: y };
     }
 
     function makeDateKey(obj) {
@@ -977,6 +1212,30 @@
       const dd = String(obj.day).padStart(2, "0");
       const mm = String(obj.month).padStart(2, "0");
       return dd + "/" + mm + "/" + obj.year;
+    }
+
+    function parseHourString(timeStr) {
+      if (!timeStr) return null;
+      let s = timeStr.trim();
+      const ampmMatch = s.match(/\s?(AM|PM|am|pm)$/);
+      let ampm = null;
+      if (ampmMatch) {
+        ampm = ampmMatch[1].toLowerCase();
+        s = s.replace(/\s?(AM|PM|am|pm)$/, "").trim();
+      }
+      const parts = s.split(/[.:]/);
+      const rawHour = parseInt(parts[0], 10);
+      if (isNaN(rawHour)) return null;
+      let hour = rawHour;
+      if (ampm === "pm" && hour < 12) hour += 12;
+      if (ampm === "am" && hour === 12) hour = 0;
+      if (hour < 0 || hour > 23) return null;
+      return hour;
+    }
+
+    function formatHourDisplay(hour) {
+      const hh = String(hour).padStart(2, "0");
+      return hh + ".00";
     }
 
     function renderLineChart(labels, data) {
@@ -1019,14 +1278,104 @@
       });
     }
 
+    function setTheme(theme) {
+      if (theme === "blue") {
+        document.body.classList.add("theme-blue");
+      } else {
+        document.body.classList.remove("theme-blue");
+      }
+
+      if (themeToggleBtn) {
+        themeToggleBtn.textContent = theme === "blue" ? "🌸 Mode pink" : "💙 Mode biru";
+        themeToggleBtn.dataset.theme = theme;
+      }
+
+      try {
+        localStorage.setItem("ninu-theme", theme);
+      } catch (e) {}
+    }
+
+    function toggleTheme() {
+      const current = themeToggleBtn && themeToggleBtn.dataset.theme
+        ? themeToggleBtn.dataset.theme
+        : "pink";
+      const next = current === "pink" ? "blue" : "pink";
+      setTheme(next);
+    }
+
+    // apply theme dari localStorage (default pink)
+    (function initTheme() {
+      let saved = "pink";
+      try {
+        const stored = localStorage.getItem("ninu-theme");
+        if (stored === "blue" || stored === "pink") {
+          saved = stored;
+        }
+      } catch (e) {}
+      setTheme(saved);
+    })();
+
+    function resetAll() {
+      rawChatText = "";
+      senderList = [];
+      currentFilterSender = "__ALL__";
+
+      if (lineChart) {
+        lineChart.destroy();
+        lineChart = null;
+      }
+
+      senderFilterSelect.innerHTML = "";
+      const opt = document.createElement("option");
+      opt.value = "__ALL__";
+      opt.textContent = "Semua pengirim";
+      senderFilterSelect.appendChild(opt);
+
+      filenameInfo.textContent = "Belum ada file yang dipilih";
+      totalMessagesEl.textContent = "0";
+      uniqueSendersEl.textContent = "0";
+      activeDaysEl.textContent = "0";
+      avgPerDayEl.textContent = "0";
+      currentMonthLabelEl.textContent = "Pesan bulan ini";
+      currentMonthMessagesEl.textContent = "0";
+      busiestMonthValueEl.textContent = "-";
+      busiestHourValueEl.textContent = "-";
+      busiestDayInfoEl.textContent = "";
+      tableSubtitleEl.textContent = "Lihat siapa yang paling bawel di chat 🤭";
+      senderTableBody.innerHTML = "";
+      storyTotalEl.textContent = "0";
+      storyDaysEl.textContent = "0";
+      storyAvgEl.textContent = "0";
+      storyTopSenderEl.textContent = "-";
+      storyBusiestDateEl.textContent = "";
+      storyMonthTotalEl.textContent = "0";
+      storyMonthLabelEl.textContent = "-";
+      storyTopListEl.textContent = "-";
+      resultsSubtitleEl.textContent = "Statistik dihitung otomatis dari semua pengirim di chat ini.";
+
+      resultsEl.style.display = "none";
+      setStatus("", "");
+    }
+
     fileInput.addEventListener("change", handleFileSelect);
 
+    senderFilterSelect.addEventListener("change", () => {
+      if (!rawChatText) {
+        setStatus("Upload file chat dulu sebelum pakai filter.", "error");
+        senderFilterSelect.value = "__ALL__";
+        return;
+      }
+      const value = senderFilterSelect.value;
+      currentFilterSender = value;
+      const filterSender = value === "__ALL__" ? null : value;
+      processChatText(filterSender, rawChatText);
+    });
+
     function handleFileSelect(event) {
+      resetAll();
       const file = event.target.files[0];
-      clearResults();
 
       if (!file) {
-        filenameInfo.textContent = "Belum ada file yang dipilih";
         setStatus("Tidak ada file yang dipilih.", "error");
         return;
       }
@@ -1041,7 +1390,10 @@
       const reader = new FileReader();
       reader.onload = function(e) {
         const text = e.target.result;
-        processChatText(text);
+        rawChatText = text;
+        buildSenderList(text);
+        populateSenderFilter();
+        processChatText(null, text);
       };
       reader.onerror = function() {
         setStatus("Gagal membaca file. Coba lagi.", "error");
@@ -1063,46 +1415,47 @@
       if (type === "error") statusEl.classList.add("error");
     }
 
-    function clearResults() {
-      resultsEl.style.display = "none";
-      senderTableBody.innerHTML = "";
-      totalMessagesEl.textContent = "0";
-      uniqueSendersEl.textContent = "0";
-      activeDaysEl.textContent = "0";
-      avgPerDayEl.textContent = "0";
-      currentMonthLabelEl.textContent = "Pesan bulan ini";
-      currentMonthMessagesEl.textContent = "0";
-      busiestMonthValueEl.textContent = "-";
-      busiestDayInfoEl.textContent = "";
-      storyTotalEl.textContent = "0";
-      storyDaysEl.textContent = "0";
-      storyAvgEl.textContent = "0";
-      storyTopSenderEl.textContent = "-";
-      storyBusiestDateEl.textContent = "";
-      storyMonthTotalEl.textContent = "0";
-      storyMonthLabelEl.textContent = "-";
-      storyTopListEl.textContent = "-";
-      if (lineChart) {
-        lineChart.destroy();
-        lineChart = null;
+    function buildSenderList(text) {
+      const counts = {};
+      const lines = text.split(/\r?\n/);
+      for (const line of lines) {
+        const match = matchMessageLine(line);
+        if (!match) continue;
+        const rest = match[3];
+        let sender = "Sistem";
+        const colonIndex = rest.indexOf(":");
+        if (colonIndex !== -1) {
+          sender = rest.slice(0, colonIndex).trim();
+        }
+        if (sender === "Sistem") continue;
+        if (!counts[sender]) counts[sender] = 0;
+        counts[sender]++;
       }
-      Object.assign(globalStats, {
-        total: 0,
-        activeDays: 0,
-        avgPerDay: 0,
-        topSender: "-",
-        topSenders: [],
-        busiestDateLabel: "",
-        busiestCount: 0,
-        currentMonthName: "",
-        currentMonthTotal: 0,
-        busiestMonthName: "",
-        busiestMonthCount: 0
-      });
-      setStatus("", "");
+      senderList = Object.entries(counts)
+        .sort((a, b) => b[1] - a[1])
+        .map(function(entry) {
+          return { name: entry[0], total: entry[1] };
+        });
     }
 
-    function processChatText(text) {
+    function populateSenderFilter() {
+      senderFilterSelect.innerHTML = "";
+      const optAll = document.createElement("option");
+      optAll.value = "__ALL__";
+      optAll.textContent = "Semua pengirim";
+      senderFilterSelect.appendChild(optAll);
+
+      senderList.forEach(function(item) {
+        const opt = document.createElement("option");
+        opt.value = item.name;
+        opt.textContent = item.name;
+        senderFilterSelect.appendChild(opt);
+      });
+
+      senderFilterSelect.value = "__ALL__";
+    }
+
+    function processChatText(filterSender, text) {
       if (!text || !text.trim()) {
         setStatus("File kosong atau tidak bisa dibaca.", "error");
         return;
@@ -1115,6 +1468,7 @@
       const dailyCounts = {};
       const dailyLabelMap = {};
       const monthlyCounts = {};
+      const hourlyCounts = {};
 
       const monthNames = ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
 
@@ -1123,50 +1477,70 @@
         if (!match) continue;
 
         const dateStr = match[1];
+        const timeStr = match[2];
         const parsedDate = parseDateString(dateStr);
         if (!parsedDate) continue;
 
         const dateKey = makeDateKey(parsedDate);
         const dateLabel = makeDateLabel(parsedDate);
-
-        dailyCounts[dateKey] = (dailyCounts[dateKey] || 0) + 1;
-        dailyLabelMap[dateKey] = dateLabel;
-
         const monthKey = parsedDate.year + "-" + String(parsedDate.month).padStart(2, "0");
-        monthlyCounts[monthKey] = (monthlyCounts[monthKey] || 0) + 1;
-
-        totalMessages++;
+        const hour = parseHourString(timeStr);
 
         const rest = match[3];
-
         let sender = "Sistem";
         const colonIndex = rest.indexOf(":");
         if (colonIndex !== -1) {
           sender = rest.slice(0, colonIndex).trim();
         }
 
-        // jangan masukkan "Sistem" ke statistik per pengirim
+        if (filterSender && sender !== filterSender) {
+          continue; // filter 1 orang
+        }
+
+        // total & per hari
+        totalMessages++;
+        dailyCounts[dateKey] = (dailyCounts[dateKey] || 0) + 1;
+        dailyLabelMap[dateKey] = dateLabel;
+
+        // per bulan (TOTAL pesan di bulan tsb)
+        monthlyCounts[monthKey] = (monthlyCounts[monthKey] || 0) + 1;
+
+        // per jam
+        if (hour !== null) {
+          hourlyCounts[hour] = (hourlyCounts[hour] || 0) + 1;
+        }
+
+        // per pengirim (skip "Sistem")
         if (sender !== "Sistem") {
           if (!senderCounts[sender]) senderCounts[sender] = 0;
           senderCounts[sender]++;
         }
       }
 
-      const dateKeys = Object.keys(dailyCounts).sort();
-      const monthKeys = Object.keys(monthlyCounts).sort();
+      // sort tanggal & bulan supaya grafik kiri→kanan
+      const dateKeys = Object.keys(dailyCounts).sort(function(a, b) {
+        return a.localeCompare(b);
+      });
+      const monthKeys = Object.keys(monthlyCounts).sort(function(a, b) {
+        return a.localeCompare(b);
+      });
 
       if (totalMessages === 0 || dateKeys.length === 0) {
-        setStatus(
-          "Tidak ditemukan baris pesan dengan format standar WhatsApp. Pastikan ini benar-benar file export chat.",
-          "error"
-        );
+        if (filterSender) {
+          setStatus('Tidak ada pesan untuk pengirim "' + filterSender + '".', "error");
+        } else {
+          setStatus(
+            "Tidak ditemukan baris pesan dengan format standar WhatsApp. Pastikan ini benar-benar file export chat.",
+            "error"
+          );
+        }
         return;
       }
 
       const activeDays = dateKeys.length;
       const avgPerDay = activeDays > 0 ? totalMessages / activeDays : 0;
 
-      // TANGGAL PALING RAME
+      // tanggal paling rame
       let busiestKey = dateKeys[0];
       let busiestCount = dailyCounts[busiestKey];
       for (let i = 1; i < dateKeys.length; i++) {
@@ -1178,16 +1552,18 @@
       }
       const busiestLabel = dailyLabelMap[busiestKey];
 
-      // BULAN TERAKHIR (untuk "bulan ini")
+      // bulan terakhir (untuk "Pesan bulan ini")
       let currentMonthName = "";
       let currentMonthTotal = 0;
       if (dateKeys.length) {
         const lastKey = dateKeys[dateKeys.length - 1]; // YYYY-MM-DD
-        const [lastYear, lastMonth] = lastKey.split("-");
+        const parts = lastKey.split("-");
+        const lastYear = parts[0];
+        const lastMonth = parts[1];
         const monthPrefix = lastYear + "-" + lastMonth;
 
         for (const k of dateKeys) {
-          if (k.startsWith(monthPrefix)) {
+          if (k.indexOf(monthPrefix) === 0) {
             currentMonthTotal += dailyCounts[k];
           }
         }
@@ -1199,7 +1575,7 @@
         currentMonthMessagesEl.textContent = currentMonthTotal.toLocaleString("id-ID");
       }
 
-      // BULAN PALING RAME
+      // bulan paling rame (TOTAL pesan / bulan)
       let busiestMonthName = "";
       let busiestMonthCount = 0;
       if (monthKeys.length) {
@@ -1212,32 +1588,32 @@
             maxKey = k;
           }
         }
-        const [y, m] = maxKey.split("-");
+        const parts = maxKey.split("-");
+        const y = parts[0];
+        const m = parts[1];
         const mIdx = Math.max(0, Math.min(11, parseInt(m, 10) - 1));
         const mName = monthNames[mIdx];
         busiestMonthName = mName + " " + y;
         busiestMonthCount = maxVal;
       }
 
-      // Update statistik utama
+      // jam paling rame
+      let busiestHour = null;
+      let busiestHourCount = 0;
+      for (const hStr in hourlyCounts) {
+        const h = parseInt(hStr, 10);
+        const count = hourlyCounts[h];
+        if (count > busiestHourCount) {
+          busiestHourCount = count;
+          busiestHour = h;
+        }
+      }
+
+      // update statistik utama
       totalMessagesEl.textContent = totalMessages.toLocaleString("id-ID");
-      uniqueSendersEl.textContent = Object.keys(senderCounts).length.toLocaleString("id-ID");
+      uniqueSendersEl.textContent = (Object.keys(senderCounts).length || 0).toLocaleString("id-ID");
       activeDaysEl.textContent = activeDays.toLocaleString("id-ID");
       avgPerDayEl.textContent = avgPerDay.toFixed(1).replace(".", ",");
-
-      busiestDayInfoEl.textContent =
-        "Tanggal paling rame: " +
-        busiestLabel +
-        " (" +
-        busiestCount.toLocaleString("id-ID") +
-        " pesan)." +
-        (busiestMonthName
-          ? " Bulan paling rame: " +
-            busiestMonthName +
-            " (" +
-            busiestMonthCount.toLocaleString("id-ID") +
-            " pesan)."
-          : "");
 
       if (busiestMonthName) {
         busiestMonthValueEl.textContent =
@@ -1246,53 +1622,122 @@
         busiestMonthValueEl.textContent = "-";
       }
 
-      // Tabel pengirim
-      const sortedSenders = Object.entries(senderCounts).sort((a, b) => b[1] - a[1]);
+      if (busiestHour !== null) {
+        busiestHourValueEl.textContent =
+          formatHourDisplay(busiestHour) +
+          " (" +
+          busiestHourCount.toLocaleString("id-ID") +
+          " pesan)";
+      } else {
+        busiestHourValueEl.textContent = "-";
+      }
+
+      let infoText =
+        "Tanggal paling rame: " +
+        busiestLabel +
+        " (" +
+        busiestCount.toLocaleString("id-ID") +
+        " pesan).";
+      if (busiestMonthName) {
+        infoText +=
+          " Bulan paling rame: " +
+          busiestMonthName +
+          " (" +
+          busiestMonthCount.toLocaleString("id-ID") +
+          " pesan).";
+      }
+      if (busiestHour !== null) {
+        infoText +=
+          " Jam paling rame: " +
+          formatHourDisplay(busiestHour) +
+          " (" +
+          busiestHourCount.toLocaleString("id-ID") +
+          " pesan).";
+      }
+      busiestDayInfoEl.textContent = infoText;
+
+      // tabel pengirim
+      const sortedSenders = Object.entries(senderCounts).sort(function(a, b) {
+        return b[1] - a[1];
+      });
+      const totalSenderMessages = sortedSenders.reduce(function(sum, item) {
+        return sum + item[1];
+      }, 0) || 1;
 
       senderTableBody.innerHTML = "";
-      sortedSenders.forEach(([sender, count], index) => {
-        const percent = (count / totalMessages) * 100;
-
+      if (!sortedSenders.length) {
         const tr = document.createElement("tr");
-
-        const tdIndex = document.createElement("td");
-        tdIndex.textContent = index + 1;
-
-        const tdSender = document.createElement("td");
-        tdSender.className = "sender-col";
-        tdSender.textContent = sender || "(Tanpa nama)";
-
-        const tdCount = document.createElement("td");
-        tdCount.textContent = count.toLocaleString("id-ID");
-
-        const tdPercent = document.createElement("td");
-        tdPercent.textContent = percent.toFixed(1).replace(".", ",") + " %";
-
-        tr.appendChild(tdIndex);
-        tr.appendChild(tdSender);
-        tr.appendChild(tdCount);
-        tr.appendChild(tdPercent);
-
+        const td = document.createElement("td");
+        td.colSpan = 4;
+        td.textContent = "Tidak ada pengirim (hanya pesan sistem).";
+        tr.appendChild(td);
         senderTableBody.appendChild(tr);
-      });
+      } else {
+        sortedSenders.forEach(function(entry, index) {
+          const sender = entry[0];
+          const count = entry[1];
+          const percent = (count / totalSenderMessages) * 100;
 
-      // Data untuk diagram garis
-      const labels = dateKeys.map(k => dailyLabelMap[k]);
-      const chartData = dateKeys.map(k => dailyCounts[k]);
+          const tr = document.createElement("tr");
+
+          const tdIndex = document.createElement("td");
+          tdIndex.textContent = index + 1;
+
+          const tdSender = document.createElement("td");
+          tdSender.className = "sender-col";
+          tdSender.textContent = sender || "(Tanpa nama)";
+
+          const tdCount = document.createElement("td");
+          tdCount.textContent = count.toLocaleString("id-ID");
+
+          const tdPercent = document.createElement("td");
+          tdPercent.textContent = percent.toFixed(1).replace(".", ",") + " %";
+
+          tr.appendChild(tdIndex);
+          tr.appendChild(tdSender);
+          tr.appendChild(tdCount);
+          tr.appendChild(tdPercent);
+
+          senderTableBody.appendChild(tr);
+        });
+      }
+
+      if (filterSender) {
+        tableSubtitleEl.textContent =
+          "Menampilkan statistik hanya untuk pengirim: " + filterSender;
+        resultsSubtitleEl.textContent =
+          "Statistik untuk pengirim \"" + filterSender + "\".";
+      } else {
+        tableSubtitleEl.textContent = "Lihat siapa yang paling bawel di chat 🤭";
+        resultsSubtitleEl.textContent =
+          "Statistik dihitung otomatis dari semua pengirim di chat ini.";
+      }
+
+      // data untuk diagram garis — sudah urut kiri→kanan
+      const labels = dateKeys.map(function(k) { return dailyLabelMap[k]; });
+      const chartData = dateKeys.map(function(k) { return dailyCounts[k]; });
       renderLineChart(labels, chartData);
 
-      // Update tampilan story
-      const topSender = sortedSenders.length > 0 ? sortedSenders[0][0] : "-";
+      // update tampilan story
+      const topSender = sortedSenders.length > 0
+        ? sortedSenders[0][0]
+        : (filterSender || "-");
+
       storyTotalEl.textContent = totalMessages.toLocaleString("id-ID");
       storyDaysEl.textContent = activeDays.toLocaleString("id-ID");
       storyAvgEl.textContent = avgPerDay.toFixed(1).replace(".", ",");
+
       storyTopSenderEl.textContent = topSender || "-";
 
-      storyMonthTotalEl.textContent = currentMonthTotal.toLocaleString("id-ID");
-      storyMonthLabelEl.textContent = currentMonthName || "-";
+      // BULAN TER RAME di kartu story (pakai bulan paling rame)
+      storyMonthTotalEl.textContent = (busiestMonthCount || 0).toLocaleString("id-ID");
+      storyMonthLabelEl.textContent = busiestMonthName || "-";
+
       let topListStr = "-";
       if (sortedSenders.length) {
-        const names = sortedSenders.slice(0, 3).map(([name]) => name || "(Tanpa nama)");
+        const names = sortedSenders.slice(0, 3).map(function(item) {
+          return item[0] || "(Tanpa nama)";
+        });
         topListStr = names.join(" • ");
       }
       storyTopListEl.textContent = topListStr;
@@ -1311,25 +1756,38 @@
           busiestMonthCount.toLocaleString("id-ID") +
           " pesan)";
       }
+      if (busiestHour !== null) {
+        chipText +=
+          " • Jam paling rame: " +
+          formatHourDisplay(busiestHour) +
+          " (" +
+          busiestHourCount.toLocaleString("id-ID") +
+          " pesan)";
+      }
       storyBusiestDateEl.textContent = chipText;
 
-      // Simpan ke globalStats untuk share
-      Object.assign(globalStats, {
-        total: totalMessages,
-        activeDays: activeDays,
-        avgPerDay: avgPerDay,
-        topSender: topSender || "-",
-        topSenders: sortedSenders.slice(0, 3),
-        busiestDateLabel: busiestLabel || "",
-        busiestCount: busiestCount || 0,
-        currentMonthName: currentMonthName,
-        currentMonthTotal: currentMonthTotal,
-        busiestMonthName: busiestMonthName,
-        busiestMonthCount: busiestMonthCount
-      });
+      // simpan untuk share
+      globalStats.total = totalMessages;
+      globalStats.activeDays = activeDays;
+      globalStats.avgPerDay = avgPerDay;
+      globalStats.topSender = topSender || "-";
+      globalStats.topSenders = sortedSenders.slice(0, 3);
+      globalStats.busiestDateLabel = busiestLabel || "";
+      globalStats.busiestCount = busiestCount || 0;
+      globalStats.currentMonthName = currentMonthName;
+      globalStats.currentMonthTotal = currentMonthTotal;
+      globalStats.busiestMonthName = busiestMonthName;
+      globalStats.busiestMonthCount = busiestMonthCount;
+      globalStats.busiestHourLabel = busiestHour !== null ? formatHourDisplay(busiestHour) : "";
+      globalStats.busiestHourCount = busiestHourCount;
+      globalStats.filterSender = filterSender || null;
 
       resultsEl.style.display = "block";
-      setStatus("Berhasil memproses file ✅", "ok");
+      if (filterSender) {
+        setStatus('Statistik untuk pengirim "' + filterSender + '" ✅', "ok");
+      } else {
+        setStatus("Berhasil memproses file ✅", "ok");
+      }
     }
 
     function openStoryView() {
@@ -1344,8 +1802,7 @@
       storyOverlay.classList.remove("show");
     }
 
-    // Tutup overlay jika klik di luar kartu
-    storyOverlay.addEventListener("click", (e) => {
+    storyOverlay.addEventListener("click", function(e) {
       if (e.target === storyOverlay) {
         closeStoryView();
       }
@@ -1377,21 +1834,32 @@
       const avg = (globalStats.avgPerDay || 0).toFixed(1).replace(".", ",");
       const top = globalStats.topSender || "-";
 
+      const filterInfo = globalStats.filterSender
+        ? "\n(Statistik untuk: " + globalStats.filterSender + ")"
+        : "";
+
       let monthPart = "";
-      if (globalStats.currentMonthName && globalStats.currentMonthTotal) {
+      if (globalStats.busiestMonthName && globalStats.busiestMonthCount) {
         monthPart =
-          `\nBulan ini (${globalStats.currentMonthName}): ` +
-          globalStats.currentMonthTotal.toLocaleString("id-ID") +
+          "\nBulan ter rame (" +
+          globalStats.busiestMonthName +
+          "): " +
+          globalStats.busiestMonthCount.toLocaleString("id-ID") +
           " pesan";
       }
 
       let topSendersPart = "";
       if (globalStats.topSenders && globalStats.topSenders.length) {
         topSendersPart = "\n\nTop pengirim:";
-        globalStats.topSenders.forEach(([name, count], idx) => {
-          const label = name || "(Tanpa nama)";
+        globalStats.topSenders.forEach(function(item, idx) {
+          const name = item[0] || "(Tanpa nama)";
+          const count = item[1];
           topSendersPart +=
-            `\n${idx + 1}. ${label}: ` +
+            "\n" +
+            (idx + 1) +
+            ". " +
+            name +
+            ": " +
             count.toLocaleString("id-ID") +
             " pesan";
         });
@@ -1400,28 +1868,51 @@
       let busiestPart = "";
       if (globalStats.busiestDateLabel && globalStats.busiestCount) {
         busiestPart =
-          `\n\nTanggal paling rame: ${globalStats.busiestDateLabel} ` +
-          `(${globalStats.busiestCount.toLocaleString("id-ID")} pesan)`;
+          "\n\nTanggal paling rame: " +
+          globalStats.busiestDateLabel +
+          " (" +
+          globalStats.busiestCount.toLocaleString("id-ID") +
+          " pesan)";
       }
       if (globalStats.busiestMonthName && globalStats.busiestMonthCount) {
         busiestPart +=
-          `\nBulan paling rame: ${globalStats.busiestMonthName} ` +
-          `(${globalStats.busiestMonthCount.toLocaleString("id-ID")} pesan)`;
+          "\nBulan paling rame: " +
+          globalStats.busiestMonthName +
+          " (" +
+          globalStats.busiestMonthCount.toLocaleString("id-ID") +
+          " pesan)";
+      }
+      if (globalStats.busiestHourLabel && globalStats.busiestHourCount) {
+        busiestPart +=
+          "\nJam paling rame: " +
+          globalStats.busiestHourLabel +
+          " (" +
+          globalStats.busiestHourCount.toLocaleString("id-ID") +
+          " pesan)";
       }
 
       const text =
-        `Statistik chat aku dari ninu 💌\n\n` +
-        `Total pesan: ${total}\n` +
-        `Hari aktif: ${days}\n` +
-        `Rata-rata / hari: ${avg}\n` +
-        `Paling bawel: ${top}` +
+        "Statistik chat aku dari ninu 💌" +
+        filterInfo +
+        "\n\n" +
+        "Total pesan: " +
+        total +
+        "\n" +
+        "Hari aktif: " +
+        days +
+        "\n" +
+        "Rata-rata / hari: " +
+        avg +
+        "\n" +
+        "Paling bawel: " +
+        top +
         monthPart +
         topSendersPart +
         busiestPart +
-        `\n\nDibuat dengan ninu (WhatsApp chat analyzer).`;
+        "\n\nDibuat dengan ninu (WhatsApp chat analyzer).";
 
       if (navigator.share) {
-        navigator.share({ text }).catch(() => {});
+        navigator.share({ text: text }).catch(function() {});
       } else {
         const waUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent(text);
         window.open(waUrl, "_blank");
