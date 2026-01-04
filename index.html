@@ -186,7 +186,6 @@
       gap: 12px;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 16px;
     }
 
     .header-left {
@@ -368,6 +367,33 @@
       border: 1px solid var(--hint-border);
     }
 
+    /* Input caption untuk story */
+    .story-caption-input-row {
+      margin-top: 8px;
+    }
+
+    .story-caption-input-row input {
+      width: 100%;
+      border-radius: 999px;
+      border: 1px solid var(--border-soft);
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      background: rgba(255,255,255,0.9);
+      outline: none;
+      color: var(--text-main);
+    }
+
+    .story-caption-input-row input::placeholder {
+      color: var(--text-muted);
+      opacity: 0.8;
+    }
+
+    .story-caption-input-row input:focus {
+      border-color: var(--accent-strong);
+      box-shadow: 0 0 0 1px rgba(236,72,153,0.25);
+      background: #ffffff;
+    }
+
     .status {
       font-size: 0.76rem;
       margin-top: 10px;
@@ -454,6 +480,7 @@
       margin-bottom: 12px;
     }
 
+    /* === STAT CARD LEBIH LUCU === */
     .stat-card {
       border-radius: var(--radius-md);
       border: 1px solid var(--border-soft);
@@ -462,38 +489,104 @@
       position: relative;
       overflow: hidden;
       transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .stat-card::after {
+    .stat-card::before {
       content: "";
       position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at top right, rgba(248, 113, 170, 0.18), transparent 60%);
+      inset: -60%;
+      background:
+        radial-gradient(circle at top right, rgba(255, 255, 255, 0.25), transparent 60%),
+        radial-gradient(circle at bottom left, rgba(248, 113, 170, 0.18), transparent 60%);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.2s ease;
     }
 
+    .stat-card::after {
+      content: "";
+      position: absolute;
+      right: -16px;
+      bottom: -16px;
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      border: 7px solid rgba(255,255,255,0.8);
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
     .stat-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.08);
       border-color: var(--accent-strong);
     }
 
-    .stat-card:hover::after {
+    .stat-card:hover::before {
       opacity: 1;
+    }
+
+    .stat-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.95), rgba(248, 187, 208, 0.85));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      box-shadow: 0 8px 16px rgba(244, 63, 94, 0.35);
+      flex-shrink: 0;
+      transform: translateY(0);
+      transition: transform 0.15s ease;
+    }
+
+    body.theme-blue .stat-icon {
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.98), rgba(191, 219, 254, 0.9));
+      box-shadow: 0 8px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    .stat-card:hover .stat-icon {
+      transform: translateY(-2px);
+    }
+
+    .stat-text {
+      position: relative;
+      z-index: 1;
     }
 
     .stat-label {
       font-size: 0.75rem;
       color: var(--text-muted);
-      margin-bottom: 3px;
+      margin-bottom: 2px;
     }
 
     .stat-value {
       font-size: 1.1rem;
       font-weight: 600;
       color: var(--text-main);
+    }
+
+    .stat-badge {
+      margin-top: 3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      color: var(--text-soft);
+      border: 1px solid rgba(255,255,255,0.9);
+      text-transform: lowercase;
+    }
+
+    .stat-badge::before {
+      content: "★";
+      font-size: 0.7rem;
     }
 
     .btn-story {
@@ -637,6 +730,7 @@
       position: relative;
       overflow: hidden;
       transition: background 0.25s ease, transform 0.3s ease, opacity 0.3s ease;
+      border: 1px solid rgba(248,250,252,0.45);
     }
 
     .story-overlay.show .story-card {
@@ -661,6 +755,28 @@
       transition: background 0.25s ease;
     }
 
+    /* Top bar ala IG story */
+    .story-topbar {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      top: 10px;
+      height: 4px;
+      display: flex;
+      gap: 4px;
+      z-index: 2;
+    }
+
+    .story-topbar span {
+      flex: 1;
+      border-radius: 999px;
+      background: rgba(248, 250, 252, 0.35);
+    }
+
+    .story-topbar span:nth-child(1) {
+      background: rgba(248, 250, 252, 0.95);
+    }
+
     .story-inner {
       position: relative;
       z-index: 1;
@@ -676,6 +792,7 @@
       align-items: center;
       font-size: 0.78rem;
       color: #fde2f4;
+      margin-top: 6px;
     }
 
     .story-logo {
@@ -713,10 +830,16 @@
       font-weight: 600;
       margin-top: 14px;
       line-height: 1;
-      text-shadow: 0 8px 24px rgba(15, 23, 42, 0.8);
       position: relative;
       display: inline-block;
       padding: 4px 10px;
+      text-shadow: 0 8px 24px rgba(15, 23, 42, 0.8);
+      background: linear-gradient(120deg, #fdf2f8, #ffffff, #fed7e2);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shimmerText 4s ease-in-out infinite;
     }
 
     .story-main-number::before {
@@ -727,6 +850,12 @@
       filter: blur(2px);
       z-index: -1;
       border-radius: 32px;
+    }
+
+    @keyframes shimmerText {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .story-main-label {
@@ -887,6 +1016,26 @@
       opacity: 0.9;
     }
 
+    /* STIKER LUCU DI STORY */
+    .story-sticker {
+      position: absolute;
+      font-size: 1.4rem;
+      filter: drop-shadow(0 6px 12px rgba(15,23,42,0.55));
+      z-index: 1;
+    }
+
+    .story-sticker.sticker-1 {
+      top: 18%;
+      right: 14%;
+      transform: rotate(10deg);
+    }
+
+    .story-sticker.sticker-2 {
+      bottom: 18%;
+      left: 12%;
+      transform: rotate(-8deg);
+    }
+
     @media (max-width: 640px) {
       body {
         padding: 16px 10px 30px;
@@ -992,6 +1141,14 @@
             <strong>Tanpa media</strong> → kirim ke email / Drive → download file <code>.txt</code>, lalu upload di sini.
           </p>
 
+          <div class="story-caption-input-row">
+            <input
+              type="text"
+              id="storyCaptionInput"
+              placeholder=""
+            />
+          </div>
+
           <div id="status" class="status"></div>
         </section>
 
@@ -1010,34 +1167,69 @@
             </div>
           </div>
 
+          <!-- STAT CARDS -->
           <div class="stats-grid">
             <article class="stat-card">
-              <div class="stat-label">Total pesan</div>
-              <div class="stat-value" id="totalMessages">0</div>
+              <div class="stat-icon">💌</div>
+              <div class="stat-text">
+                <div class="stat-label">Total pesan</div>
+                <div class="stat-value" id="totalMessages">0</div>
+                <div class="stat-badge">all time</div>
+              </div>
             </article>
+
             <article class="stat-card">
-              <div class="stat-label">Jumlah pengirim unik</div>
-              <div class="stat-value" id="uniqueSenders">0</div>
+              <div class="stat-icon">👥</div>
+              <div class="stat-text">
+                <div class="stat-label">Jumlah pengirim unik</div>
+                <div class="stat-value" id="uniqueSenders">0</div>
+                <div class="stat-badge">ramai bener</div>
+              </div>
             </article>
+
             <article class="stat-card">
-              <div class="stat-label">Hari aktif</div>
-              <div class="stat-value" id="activeDays">0</div>
+              <div class="stat-icon">📆</div>
+              <div class="stat-text">
+                <div class="stat-label">Hari aktif</div>
+                <div class="stat-value" id="activeDays">0</div>
+                <div class="stat-badge">hari kalian muncul</div>
+              </div>
             </article>
+
             <article class="stat-card">
-              <div class="stat-label">Rata-rata pesan / hari</div>
-              <div class="stat-value" id="avgPerDay">0</div>
+              <div class="stat-icon">📈</div>
+              <div class="stat-text">
+                <div class="stat-label">Rata-rata pesan / hari</div>
+                <div class="stat-value" id="avgPerDay">0</div>
+                <div class="stat-badge">sehari segini chat 😳</div>
+              </div>
             </article>
+
             <article class="stat-card">
-              <div class="stat-label" id="currentMonthLabel">Pesan bulan ini</div>
-              <div class="stat-value" id="currentMonthMessages">0</div>
+              <div class="stat-icon">🗓️</div>
+              <div class="stat-text">
+                <div class="stat-label" id="currentMonthLabel">Pesan bulan ini</div>
+                <div class="stat-value" id="currentMonthMessages">0</div>
+                <div class="stat-badge">vibes bulan ini</div>
+              </div>
             </article>
+
             <article class="stat-card">
-              <div class="stat-label">Bulan paling rame</div>
-              <div class="stat-value" id="busiestMonthValue">-</div>
+              <div class="stat-icon">🔥</div>
+              <div class="stat-text">
+                <div class="stat-label">Bulan paling rame</div>
+                <div class="stat-value" id="busiestMonthValue">-</div>
+                <div class="stat-badge">peak season chat</div>
+              </div>
             </article>
+
             <article class="stat-card">
-              <div class="stat-label">Jam paling rame</div>
-              <div class="stat-value" id="busiestHourValue">-</div>
+              <div class="stat-icon">⏰</div>
+              <div class="stat-text">
+                <div class="stat-label">Jam paling rame</div>
+                <div class="stat-value" id="busiestHourValue">-</div>
+                <div class="stat-badge"></div>
+              </div>
             </article>
           </div>
 
@@ -1062,7 +1254,7 @@
           <div class="results-header" style="margin-top: 8px;">
             <div>
               <h2>Pesan per pengirim</h2>
-              <small id="tableSubtitle">Lihat siapa yang paling bawel di chat 🤭</small>
+              <small id="tableSubtitle">Lihat siapa yang paling berisik di chat 🤭</small>
             </div>
           </div>
 
@@ -1085,11 +1277,7 @@
           <p class="footer-note">
             <strong>Format yang didukung (contoh):</strong>
             <br>
-            <code>01/01/24, 10.15 - Nama: Pesan</code>,
-            <code>01-01-2024, 10:15 - Nama: Pesan</code>,
-            <code>[01/01/24, 10.15] Nama: Pesan</code>,
-            <code>[01/01/2024 10.15] Nama: Pesan</code>,
-            termasuk variasi <code>AM/PM</code>.
+
             <br>
             Baris lanjutan dari pesan panjang tidak dihitung sebagai pesan baru. Data tidak dikirim ke server mana pun.
           </p>
@@ -1102,6 +1290,15 @@
   <div id="storyOverlay" class="story-overlay">
     <div class="story-card-wrapper">
       <div class="story-card" id="storyCard">
+        <!-- topbar ala story -->
+        <div class="story-topbar">
+          <span></span><span></span><span></span>
+        </div>
+
+        <!-- stiker lucu -->
+        <div class="story-sticker sticker-1">💖</div>
+        <div class="story-sticker sticker-2">📊</div>
+
         <div class="story-inner">
           <div>
             <div class="story-header">
@@ -1109,7 +1306,7 @@
               <span class="story-title">ninu stats</span>
               <span class="story-header-emoji">✨</span>
             </div>
-            <div class="story-subtitle">Cerita chat kalian dalam angka 📊</div>
+            <div class="story-subtitle" id="storySubtitle">Cerita chat kalian dalam angka 📊</div>
             <div class="story-main-number" id="storyTotal">0</div>
             <div class="story-main-label">total pesan</div>
 
@@ -1142,7 +1339,7 @@
             <div class="story-chip-full">
               <div class="story-chip-label">
                 <span class="emoji">💬</span>
-                <span>paling bawel di chat</span>
+                <span>paling berisk di chat</span>
               </div>
               <div class="story-chip-value" id="storyTopSender">-</div>
               <div class="story-chip-sub" id="storyBusiestDate"></div>
@@ -1212,6 +1409,8 @@
     const storyMonthTotalEl = document.getElementById("storyMonthTotal");
     const storyMonthLabelEl = document.getElementById("storyMonthLabel");
     const storyTopListEl = document.getElementById("storyTopList");
+    const storySubtitleDynamic = document.getElementById("storySubtitle");
+    const storyCaptionInput = document.getElementById("storyCaptionInput");
 
     const themeToggleBtn = document.getElementById("themeToggleBtn");
 
@@ -1417,7 +1616,7 @@
       busiestMonthValueEl.textContent = "-";
       busiestHourValueEl.textContent = "-";
       busiestDayInfoEl.textContent = "";
-      tableSubtitleEl.textContent = "Lihat siapa yang paling bawel di chat 🤭";
+      tableSubtitleEl.textContent = "Lihat siapa yang paling berisik di chat 🤭";
       senderTableBody.innerHTML = "";
       storyTotalEl.textContent = "0";
       storyDaysEl.textContent = "0";
@@ -1428,6 +1627,13 @@
       storyMonthLabelEl.textContent = "-";
       storyTopListEl.textContent = "-";
       resultsSubtitleEl.textContent = "Statistik dihitung otomatis dari semua pengirim di chat ini.";
+
+      if (storySubtitleDynamic) {
+        storySubtitleDynamic.textContent = "Cerita chat kalian dalam angka 📊";
+      }
+      if (storyCaptionInput) {
+        storyCaptionInput.value = "";
+      }
 
       resultsEl.style.display = "none";
       resultsEl.classList.remove("show");
@@ -1694,7 +1900,9 @@
 
       if (busiestMonthName) {
         busiestMonthValueEl.textContent =
-          busiestMonthName + " — " + busiestMonthCount.toLocaleString("id-ID") + " pesan";
+          busiestMonthName + " — " +
+          busiestMonthCount.toLocaleString("id-ID") +
+          " pesan";
       } else {
         busiestMonthValueEl.textContent = "-";
       }
@@ -1785,7 +1993,7 @@
         resultsSubtitleEl.textContent =
           "Statistik untuk pengirim \"" + filterSender + "\".";
       } else {
-        tableSubtitleEl.textContent = "Lihat siapa yang paling bawel di chat 🤭";
+        tableSubtitleEl.textContent = "Lihat siapa yang paling berisik di chat 🤭";
         resultsSubtitleEl.textContent =
           "Statistik dihitung otomatis dari semua pengirim di chat ini.";
       }
@@ -1877,6 +2085,13 @@
         setStatus("Upload dan proses chat dulu sebelum membuat tampilan story.", "error");
         return;
       }
+
+      // update caption dinamis kalau diisi
+      if (storySubtitleDynamic && storyCaptionInput) {
+        const val = storyCaptionInput.value.trim();
+        storySubtitleDynamic.textContent = val || "Cerita chat kalian dalam angka 📊";
+      }
+
       storyOverlay.classList.add("show");
     }
 
@@ -1973,6 +2188,10 @@
           " pesan)";
       }
 
+      const captionText = storyCaptionInput && storyCaptionInput.value.trim()
+        ? "\nCaption: " + storyCaptionInput.value.trim()
+        : "";
+
       const text =
         "Statistik chat aku dari ninu 💌" +
         filterInfo +
@@ -1986,11 +2205,12 @@
         "Rata-rata / hari: " +
         avg +
         "\n" +
-        "Paling bawel: " +
+        "Paling berisik: " +
         top +
         monthPart +
         topSendersPart +
         busiestPart +
+        captionText +
         "\n\nDibuat dengan ninu (WhatsApp chat analyzer).";
 
       if (navigator.share) {
