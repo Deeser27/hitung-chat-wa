@@ -5,29 +5,33 @@
   <title>ninu — WhatsApp Chat Analyzer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Font modern -->
+  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-gradient: radial-gradient(circle at top left, #4f46e5, #0ea5e9 40%, #020617 80%);
-      --card-bg: rgba(15, 23, 42, 0.92);
-      --card-border: rgba(148, 163, 184, 0.4);
-      --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.15);
-      --accent-strong: #0ea5e9;
-      --danger: #f97373;
-      --success: #22c55e;
-      --text-main: #e5e7eb;
-      --text-soft: #9ca3af;
-      --text-muted: #6b7280;
+      --bg: #fdf2f8;
+      --card-bg: #ffffff;
+      --border: #fbcfe8;
+      --border-soft: #f9a8d4;
+      --accent: #ec4899;
+      --accent-soft: #fdf2f8;
+      --accent-strong: #db2777;
+      --text-main: #3b0f2f;
+      --text-soft: #be185d;
+      --text-muted: #9f1239;
+      --danger: #e11d48;
+      --danger-soft: #ffe4e6;
+      --success: #16a34a;
+      --success-soft: #dcfce7;
+      --radius-lg: 22px;
+      --radius-md: 12px;
+      --shadow-soft: 0 16px 40px rgba(190, 24, 93, 0.20);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html, body {
       margin: 0;
@@ -37,8 +41,9 @@
 
     body {
       font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background-image: var(--bg-gradient);
-      background-attachment: fixed;
+      background:
+        radial-gradient(circle at top, #f9a8d4 0, transparent 60%),
+        var(--bg);
       color: var(--text-main);
       display: flex;
       justify-content: center;
@@ -47,18 +52,15 @@
 
     .container {
       width: 100%;
-      max-width: 960px;
+      max-width: 900px;
     }
 
     .card {
       background: var(--card-bg);
-      border-radius: 24px;
-      padding: 24px 20px 26px;
-      border: 1px solid var(--card-border);
-      box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 0.7),
-        0 24px 50px rgba(15, 23, 42, 0.8);
-      backdrop-filter: blur(18px);
+      border-radius: var(--radius-lg);
+      padding: 22px 18px 24px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
       position: relative;
       overflow: hidden;
     }
@@ -67,8 +69,10 @@
       content: "";
       position: absolute;
       inset: -40%;
-      background: radial-gradient(circle at top, rgba(56,189,248,0.16), transparent 60%);
-      opacity: 0.7;
+      background:
+        radial-gradient(circle at top left, rgba(251, 207, 232, 0.9), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(251, 113, 133, 0.35), transparent 55%);
+      opacity: 0.6;
       pointer-events: none;
     }
 
@@ -80,53 +84,44 @@
     .header {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
+      gap: 12px;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
+      margin-bottom: 16px;
     }
 
-    .logo-row {
+    .header-left {
       display: flex;
       align-items: center;
       gap: 10px;
     }
 
-    .logo-badge {
-      width: 40px;
-      height: 40px;
-      border-radius: 16px;
-      background: radial-gradient(circle at 30% 0, #e0f2fe, #0ea5e9);
+    .logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 30% 0, #fff1f2, #fb7185);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.5);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #881337;
+      box-shadow: 0 12px 24px rgba(244, 63, 94, 0.45);
     }
 
-    .logo-badge span {
-      font-weight: 800;
-      color: #0b1120;
-      letter-spacing: 0.03em;
-      font-size: 1.05rem;
-    }
-
-    .title-block h1 {
-      font-size: 1.6rem;
-      letter-spacing: 0.08em;
+    .title-group h1 {
+      font-size: 1.4rem;
+      margin: 0 0 2px;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
-      margin: 0 0 4px;
     }
 
-    .title-block h1 span {
-      background: linear-gradient(to right, #e0f2fe, #a5b4fc);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
+    .title-group h1 span { color: var(--accent-strong); }
 
-    .title-block p {
+    .title-group p {
       margin: 0;
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       color: var(--text-soft);
     }
 
@@ -136,147 +131,144 @@
       gap: 6px;
       padding: 6px 12px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(248, 187, 208, 0.9);
+      background: rgba(255, 241, 242, 0.9);
       font-size: 0.75rem;
       color: var(--text-soft);
       white-space: nowrap;
     }
 
     .pill-dot {
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
       background: #22c55e;
-      box-shadow: 0 0 0 5px rgba(34,197,94,0.2);
     }
 
-    .section {
-      margin-top: 18px;
-    }
+    .section { margin-top: 18px; }
 
     .section label {
       font-size: 0.9rem;
       font-weight: 500;
       display: block;
       margin-bottom: 8px;
+      color: var(--text-main);
     }
 
-    .upload-wrapper {
+    .section label code {
+      font-size: 0.8rem;
+      background: #fee2e2;
+      border-radius: 8px;
+      padding: 2px 6px;
+    }
+
+    .upload-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px;
+      gap: 10px;
       align-items: center;
     }
 
-    .file-input {
-      display: none;
-    }
+    .file-input { display: none; }
 
-    .upload-btn {
+    .btn-upload {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 10px 18px;
+      padding: 9px 16px;
       border-radius: 999px;
       border: none;
-      background: linear-gradient(135deg, var(--accent), var(--accent-strong));
-      color: #0b1120;
-      font-weight: 600;
+      background: linear-gradient(135deg, #fb7185, #ec4899);
+      color: #fdf2f8;
       font-size: 0.9rem;
+      font-weight: 500;
       cursor: pointer;
-      box-shadow: 0 14px 30px rgba(56,189,248,0.45);
-      transition: transform 0.1s ease, box-shadow 0.1s ease, filter 0.1s ease;
+      transition: background 0.15s ease, transform 0.08s ease, box-shadow 0.1s ease;
+      box-shadow: 0 8px 22px rgba(244, 63, 94, 0.40);
     }
 
-    .upload-btn span.icon {
-      font-size: 1.1rem;
-    }
+    .btn-upload span.icon { font-size: 1rem; }
 
-    .upload-btn:hover {
+    .btn-upload:hover {
+      background: linear-gradient(135deg, #f97373, #db2777);
+      box-shadow: 0 10px 26px rgba(236, 72, 153, 0.45);
       transform: translateY(-1px);
-      filter: brightness(1.05);
-      box-shadow: 0 18px 40px rgba(56,189,248,0.6);
     }
 
-    .upload-btn:active {
-      transform: translateY(1px) scale(0.99);
-      box-shadow: 0 8px 18px rgba(56,189,248,0.4);
+    .btn-upload:active {
+      transform: translateY(1px);
+      box-shadow: 0 4px 16px rgba(244, 63, 94, 0.35);
     }
 
     .filename {
       font-size: 0.8rem;
-      color: var(--text-soft);
+      color: var(--text-muted);
       max-width: 100%;
       white-space: nowrap;
-      text-overflow: ellipsis;
       overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .hint {
-      font-size: 0.75rem;
+      font-size: 0.78rem;
       color: var(--text-muted);
       margin-top: 8px;
       line-height: 1.5;
     }
 
     .hint code {
-      font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 0.75rem;
-      background: rgba(15,23,42,0.8);
+      background: #ffe4e6;
       padding: 2px 5px;
       border-radius: 6px;
-      border: 1px solid rgba(148,163,184,0.35);
+      border: 1px solid #fecdd3;
     }
 
     .status {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       margin-top: 10px;
-      padding: 8px 10px;
-      border-radius: 10px;
+      padding: 7px 10px;
+      border-radius: var(--radius-md);
       border: 1px solid transparent;
-      background: rgba(15,23,42,0.8);
-      color: var(--text-soft);
       display: none;
     }
 
     .status.ok {
-      border-color: rgba(34,197,94,0.4);
-      background: rgba(22, 163, 74, 0.09);
-      color: #bbf7d0;
+      border-color: var(--success-soft);
+      background: #f0fdf4;
+      color: #166534;
     }
 
     .status.error {
-      border-color: rgba(248,113,113,0.5);
-      background: rgba(185,28,28,0.18);
-      color: #fecaca;
+      border-color: var(--danger-soft);
+      background: #fef2f2;
+      color: #b91c1c;
     }
 
     .results {
-      margin-top: 22px;
+      margin-top: 20px;
       display: none;
-      animation: fadeIn 0.25s ease-out;
     }
 
     .results-header {
       display: flex;
       justify-content: space-between;
-      flex-wrap: wrap;
       gap: 8px;
+      flex-wrap: wrap;
       align-items: baseline;
       margin-bottom: 10px;
     }
 
     .results-header h2 {
       margin: 0;
-      font-size: 1rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: #e5e7eb;
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--text-main);
     }
 
     .results-header small {
-      font-size: 0.74rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
     }
 
@@ -284,67 +276,84 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 10px;
-      margin-bottom: 18px;
+      margin-bottom: 12px;
     }
 
-    .stat-box {
-      position: relative;
-      border-radius: 14px;
-      padding: 10px 11px;
-      background: radial-gradient(circle at top left, rgba(56,189,248,0.2), rgba(15,23,42,0.96));
-      border: 1px solid rgba(148,163,184,0.4);
-      overflow: hidden;
-    }
-
-    .stat-box::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom right, rgba(148,163,184,0.1), transparent 40%);
-      opacity: 0.4;
-      pointer-events: none;
+    .stat-card {
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(251, 207, 232, 0.9);
+      background: linear-gradient(135deg, #fff1f2, #fdf2f8);
+      padding: 9px 11px;
     }
 
     .stat-label {
       font-size: 0.75rem;
-      color: var(--text-soft);
-      margin-bottom: 4px;
+      color: var(--text-muted);
+      margin-bottom: 3px;
     }
 
     .stat-value {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       font-weight: 600;
-      color: #e5e7eb;
+      color: var(--text-main);
+    }
+
+    .btn-story {
+      margin-top: 4px;
+      margin-bottom: 10px;
+      border-radius: 999px;
+      border: 1px solid #f9a8d4;
+      background: #fff1f2;
+      color: var(--accent-strong);
+      font-size: 0.8rem;
+      padding: 7px 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.08s ease, box-shadow 0.1s ease;
+    }
+
+    .btn-story span.icon { font-size: 0.9rem; }
+
+    .btn-story:hover {
+      background: #ffe4e6;
+      box-shadow: 0 4px 16px rgba(244, 63, 94, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .table-wrapper {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-soft);
+      overflow: hidden;
+      background: #ffffff;
+      max-height: 320px;
+      overflow: auto;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
       font-size: 0.8rem;
-      margin-top: 4px;
     }
 
     th, td {
-      padding: 7px 7px;
+      padding: 7px 8px;
       text-align: left;
-      border-bottom: 1px solid rgba(30, 41, 59, 0.9);
+      border-bottom: 1px solid #fee2e2;
     }
 
     th {
       font-weight: 500;
-      color: var(--text-soft);
-      background: rgba(15,23,42,0.96);
+      color: var(--text-muted);
+      background: #fdf2f8;
       position: sticky;
       top: 0;
-      z-index: 2;
+      z-index: 1;
     }
 
     tbody tr:nth-child(even) td {
-      background: rgba(15, 23, 42, 0.96);
-    }
-
-    tbody tr:nth-child(odd) td {
-      background: rgba(15, 23, 42, 0.86);
+      background: #fff7fb;
     }
 
     .sender-col {
@@ -357,39 +366,245 @@
     .tag {
       display: inline-flex;
       align-items: center;
-      padding: 2px 7px;
+      padding: 2px 6px;
       border-radius: 999px;
-      background: rgba(15,23,42,0.9);
-      border: 1px solid rgba(148,163,184,0.5);
-      color: var(--text-soft);
+      border: 1px solid #fecdd3;
       font-size: 0.65rem;
-      font-weight: 500;
+      color: var(--text-muted);
       margin-left: 6px;
       text-transform: uppercase;
       letter-spacing: 0.06em;
+      background: #fff1f2;
     }
 
     .footer-note {
       margin-top: 10px;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       color: var(--text-muted);
       line-height: 1.5;
     }
 
-    .footer-note strong {
-      color: #e5e7eb;
-      font-weight: 500;
+    .footer-note code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.74rem;
+      background: #ffe4e6;
+      padding: 1px 4px;
+      border-radius: 4px;
+      border: 1px solid #fecdd3;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(4px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* Story overlay */
+    .story-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(24, 0, 20, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 20;
+      padding: 16px;
+    }
+
+    .story-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .story-card-wrapper {
+      text-align: center;
+      color: #fff1f2;
+    }
+
+    .story-card {
+      width: min(360px, 90vw);
+      height: min(640px, 90vh);
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at top, #fb7185, #ec4899 50%, #9f1239 100%);
+      box-shadow: 0 24px 60px rgba(24, 0, 20, 0.8);
+      padding: 20px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin: 0 auto 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-card::before {
+      content: "";
+      position: absolute;
+      inset: -15%;
+      background:
+        radial-gradient(circle at top left, rgba(254, 202, 202, 0.8), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(251, 113, 133, 0.45), transparent 55%),
+        radial-gradient(circle at center, rgba(251, 113, 133, 0.25), transparent 65%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .story-inner {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .story-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: #fee2e2;
+    }
+
+    .story-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: rgba(248, 250, 252, 0.16);
+      border: 1px solid rgba(248, 250, 252, 0.7);
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .story-title {
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+    }
+
+    .story-header-emoji {
+      font-size: 1rem;
+    }
+
+    .story-subtitle {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: #fff7fb;
+    }
+
+    .story-main-number {
+      font-size: 3.2rem;
+      font-weight: 600;
+      margin-top: 8px;
+      line-height: 1;
+      text-shadow: 0 8px 24px rgba(24, 0, 20, 0.75);
+    }
+
+    .story-main-label {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #fee2e2;
+      margin-top: 4px;
+    }
+
+    .story-row {
+      margin-top: 24px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .story-chip {
+      flex: 1;
+      border-radius: 18px;
+      background: rgba(248, 250, 252, 0.16);
+      border: 1px solid rgba(248, 250, 252, 0.7);
+      padding: 8px 10px;
+      text-align: left;
+    }
+
+    .story-chip-label {
+      font-size: 0.7rem;
+      opacity: 0.9;
+    }
+
+    .story-chip-value {
+      margin-top: 4px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff1f2;
+    }
+
+    .story-footer-top {
+      margin-top: 22px;
+    }
+
+    .story-chip-full {
+      border-radius: 20px;
+      background: rgba(248, 250, 252, 0.16);
+      border: 1px solid rgba(248, 250, 252, 0.7);
+      padding: 9px 12px;
+      text-align: left;
+    }
+
+    .story-chip-full .story-chip-label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .story-chip-full .story-chip-label span.emoji {
+      font-size: 0.9rem;
+    }
+
+    .story-chip-full .story-chip-value {
+      font-size: 1rem;
+      margin-top: 4px;
+    }
+
+    .story-tagline {
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: #fee2e2;
+      opacity: 0.9;
+    }
+
+    .story-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+
+    .story-action-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 7px 14px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 6px 18px rgba(24, 0, 20, 0.4);
+      background: #fee2e2;
+      color: #9f1239;
+    }
+
+    .story-action-btn.secondary {
+      background: rgba(254, 242, 242, 0.9);
+      color: #9f1239;
+      box-shadow: none;
+      border: 1px solid #fecaca;
+    }
+
+    .story-action-btn span.icon { font-size: 0.9rem; }
+
+    .story-helper-text {
+      font-size: 0.75rem;
+      color: #fef2f2;
+      opacity: 0.9;
     }
 
     @media (max-width: 640px) {
@@ -399,14 +614,11 @@
 
       .card {
         padding: 18px 14px 20px;
-        border-radius: 20px;
+        border-radius: 18px;
       }
 
-      .title-block h1 {
-        font-size: 1.3rem;
-      }
-
-      .upload-btn {
+      .title-group h1 { font-size: 1.2rem; }
+      .btn-upload {
         width: 100%;
         justify-content: center;
       }
@@ -425,30 +637,28 @@
 </head>
 <body>
   <div class="container">
-    <div class="card">
+    <main class="card">
       <div class="card-inner">
-        <!-- Header / Branding -->
+        <!-- Header -->
         <header class="header">
-          <div class="logo-row">
-            <div class="logo-badge">
-              <span>ni</span>
-            </div>
-            <div class="title-block">
+          <div class="header-left">
+            <div class="logo">ni</div>
+            <div class="title-group">
               <h1><span>ninu</span></h1>
-              <p>WhatsApp chat analyzer untuk menghitung seberapa intens kamu ngobrol 💬</p>
+              <p>WhatsApp chat analyzer — hitung seberapa sering kalian chat 💌</p>
             </div>
           </div>
           <div class="pill">
             <span class="pill-dot"></span>
-            <span>Semua proses 100% di browser</span>
+            <span>Semua proses di perangkat kamu</span>
           </div>
         </header>
 
-        <!-- Upload Section -->
+        <!-- Upload section -->
         <section class="section">
           <label for="fileInput">1. Upload file <code>.txt</code> export chat WhatsApp</label>
-          <div class="upload-wrapper">
-            <label for="fileInput" class="upload-btn">
+          <div class="upload-row">
+            <label for="fileInput" class="btn-upload">
               <span class="icon">📁</span>
               <span>Pilih file export chat</span>
             </label>
@@ -457,47 +667,50 @@
           <input type="file" id="fileInput" class="file-input" accept=".txt" />
 
           <p class="hint">
-            Cara export:
-            <br />
-            Di WhatsApp buka chat ➜ menu <strong>More / Opsi lainnya</strong> ➜ <strong>Export chat</strong> ➜ pilih
-            <strong>Tanpa media</strong> ➜ kirim ke email / Drive ➜ download file <code>.txt</code>, lalu upload di sini.
+            Cara export: buka chat di WhatsApp → menu <strong>More / Opsi lainnya</strong> → <strong>Export chat</strong> → pilih
+            <strong>Tanpa media</strong> → kirim ke email / Drive → download file <code>.txt</code>, lalu upload di sini.
           </p>
 
           <div id="status" class="status"></div>
         </section>
 
-        <!-- Results Section -->
+        <!-- Results -->
         <section id="results" class="results">
           <div class="results-header">
             <h2>Ringkasan</h2>
-            <small>Statistik otomatis dihitung dari file chat kamu</small>
+            <small>Statistik dihitung otomatis dari file chat kamu.</small>
           </div>
 
           <div class="stats-grid">
-            <div class="stat-box">
+            <article class="stat-card">
               <div class="stat-label">Total pesan</div>
               <div class="stat-value" id="totalMessages">0</div>
-            </div>
-            <div class="stat-box">
+            </article>
+            <article class="stat-card">
               <div class="stat-label">Jumlah pengirim unik</div>
               <div class="stat-value" id="uniqueSenders">0</div>
-            </div>
-            <div class="stat-box">
+            </article>
+            <article class="stat-card">
               <div class="stat-label">Hari aktif</div>
               <div class="stat-value" id="activeDays">0</div>
-            </div>
-            <div class="stat-box">
+            </article>
+            <article class="stat-card">
               <div class="stat-label">Rata-rata pesan / hari</div>
               <div class="stat-value" id="avgPerDay">0</div>
-            </div>
+            </article>
           </div>
+
+          <button class="btn-story" type="button" onclick="openStoryView()">
+            <span class="icon">✨</span>
+            <span>Buat tampilan untuk Story</span>
+          </button>
 
           <div class="results-header" style="margin-top: 8px;">
             <h2>Pesan per pengirim</h2>
             <small>Lihat siapa yang paling bawel di chat 🤭</small>
           </div>
 
-          <div style="max-height: 320px; overflow: auto; border-radius: 14px; border: 1px solid rgba(30,41,59,0.9);">
+          <div class="table-wrapper">
             <table>
               <thead>
                 <tr>
@@ -522,13 +735,79 @@
             <code>[01/01/2024 10.15] Nama: Pesan</code>,
             termasuk variasi <code>AM/PM</code>.
             <br>
-            Baris lanjutan dari pesan panjang tidak dihitung sebagai pesan baru.
-            Data kamu tidak dikirim ke server mana pun — semua dihitung langsung di browser.
+            Baris lanjutan dari pesan panjang tidak dihitung sebagai pesan baru. Data tidak dikirim ke server mana pun.
           </p>
         </section>
       </div>
+    </main>
+  </div>
+
+  <!-- Story overlay -->
+  <div id="storyOverlay" class="story-overlay">
+    <div class="story-card-wrapper">
+      <div class="story-card" id="storyCard">
+        <div class="story-inner">
+          <div>
+            <div class="story-header">
+              <span class="story-logo">ni</span>
+              <span class="story-title">ninu stats</span>
+              <span class="story-header-emoji">💖</span>
+            </div>
+            <div class="story-subtitle">Cerita chat kalian dalam angka ✨</div>
+            <div class="story-main-number" id="storyTotal">0</div>
+            <div class="story-main-label">total pesan</div>
+
+            <div class="story-row">
+              <div class="story-chip">
+                <div class="story-chip-label">hari aktif</div>
+                <div class="story-chip-value" id="storyDays">0</div>
+              </div>
+              <div class="story-chip">
+                <div class="story-chip-label">rata-rata / hari</div>
+                <div class="story-chip-value" id="storyAvg">0</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="story-footer-top">
+            <div class="story-chip-full">
+              <div class="story-chip-label">
+                <span class="emoji">💬</span>
+                <span>paling bawel di chat</span>
+              </div>
+              <div class="story-chip-value" id="storyTopSender">-</div>
+            </div>
+            <div class="story-tagline">
+              Generated with <strong>ninu</strong> • whatsapp chat analyzer
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-actions">
+        <button class="story-action-btn" type="button" onclick="downloadStoryImage()">
+          <span class="icon">📸</span>
+          <span>Download gambar</span>
+        </button>
+        <button class="story-action-btn" type="button" onclick="shareStory()">
+          <span class="icon">📤</span>
+          <span>Share ke WA / IG</span>
+        </button>
+        <button class="story-action-btn secondary" type="button" onclick="closeStoryView()">
+          <span class="icon">✕</span>
+          <span>Tutup</span>
+        </button>
+      </div>
+
+      <div class="story-helper-text">
+        Tips: di HP, kamu bisa download gambar atau share lewat tombol di atas.  
+        Kalau mau full kontrol, screenshot aja kartu ini lalu post ke Story WA / IG 💖
+      </div>
     </div>
   </div>
+
+  <!-- html2canvas untuk capture kartu jadi gambar -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <script>
     const fileInput = document.getElementById("fileInput");
@@ -542,18 +821,18 @@
     const avgPerDayEl = document.getElementById("avgPerDay");
     const senderTableBody = document.getElementById("senderTableBody");
 
-    // Beberapa pola baris pesan WhatsApp yang umum:
-    // 1) 01/01/21, 10.15 - Nama: Pesan
-    // 2) 01/01/2021, 10:15 - Nama: Pesan
-    // 3) [01/01/21, 10.15] Nama: Pesan
-    // 4) [01/01/2021 10.15] Nama: Pesan
-    // (mendukung / atau - sebagai pemisah tanggal, dan AM/PM)
+    // Story elements
+    const storyOverlay = document.getElementById("storyOverlay");
+    const storyTotalEl = document.getElementById("storyTotal");
+    const storyDaysEl = document.getElementById("storyDays");
+    const storyAvgEl = document.getElementById("storyAvg");
+    const storyTopSenderEl = document.getElementById("storyTopSender");
+    const storyCard = document.getElementById("storyCard");
+
+    // Pola baris pesan WhatsApp yang umum
     const messagePatterns = [
-      // Tanpa bracket, dengan atau tanpa koma
       /^(\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}),?\s+(\d{1,2}[:.]\d{2}(?:\s?(?:AM|PM|am|pm))?)\s+-\s+(.*)$/,
-      // Dengan bracket, ada koma
       /^\[(\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4}),\s+(\d{1,2}[:.]\d{2}(?:\s?(?:AM|PM|am|pm))?)\]\s+(.*)$/,
-      // Dengan bracket, tanpa koma
       /^\[(\d{1,2}[\/-]\d{1,2}[\/-]\d{2,4})\s+(\d{1,2}[:.]\d{2}(?:\s?(?:AM|PM|am|pm))?)\]\s+(.*)$/
     ];
 
@@ -594,7 +873,6 @@
       };
 
       setStatus("Memproses file...", "");
-      statusEl.style.display = "block";
       reader.readAsText(file);
     }
 
@@ -617,6 +895,11 @@
       uniqueSendersEl.textContent = "0";
       activeDaysEl.textContent = "0";
       avgPerDayEl.textContent = "0";
+      storyTotalEl.textContent = "0";
+      storyDaysEl.textContent = "0";
+      storyAvgEl.textContent = "0";
+      storyTopSenderEl.textContent = "-";
+      setStatus("", "");
     }
 
     function processChatText(text) {
@@ -633,17 +916,14 @@
 
       for (const line of lines) {
         const match = matchMessageLine(line);
-        if (!match) {
-          // Bukan baris awal pesan (mungkin lanjutan pesan panjang atau info lain) -> lewati
-          continue;
-        }
+        if (!match) continue;
 
         totalMessages++;
 
-        const dateStr = match[1]; // "dd/mm/yy" atau "dd-mm-yyyy"
+        const dateStr = match[1];
         dateSet.add(dateStr);
 
-        const rest = match[3]; // "Nama: Pesan" atau pesan sistem
+        const rest = match[3];
 
         let sender = "Sistem";
         const colonIndex = rest.indexOf(":");
@@ -651,9 +931,7 @@
           sender = rest.slice(0, colonIndex).trim();
         }
 
-        if (!senderCounts[sender]) {
-          senderCounts[sender] = 0;
-        }
+        if (!senderCounts[sender]) senderCounts[sender] = 0;
         senderCounts[sender]++;
       }
 
@@ -668,13 +946,13 @@
       const activeDays = dateSet.size;
       const avgPerDay = activeDays > 0 ? totalMessages / activeDays : 0;
 
-      // Update statistik di UI
+      // Statistik utama
       totalMessagesEl.textContent = totalMessages.toLocaleString("id-ID");
       uniqueSendersEl.textContent = Object.keys(senderCounts).length.toLocaleString("id-ID");
       activeDaysEl.textContent = activeDays.toLocaleString("id-ID");
       avgPerDayEl.textContent = avgPerDay.toFixed(1).replace(".", ",");
 
-      // Tampilkan tabel pengirim
+      // Tabel pengirim
       const sortedSenders = Object.entries(senderCounts).sort((a, b) => b[1] - a[1]);
 
       senderTableBody.innerHTML = "";
@@ -710,8 +988,78 @@
         senderTableBody.appendChild(tr);
       });
 
+      // Update tampilan story
+      const topSender = sortedSenders.length > 0 ? sortedSenders[0][0] : "-";
+      storyTotalEl.textContent = totalMessages.toLocaleString("id-ID");
+      storyDaysEl.textContent = activeDays.toLocaleString("id-ID");
+      storyAvgEl.textContent = avgPerDay.toFixed(1).replace(".", ",");
+      storyTopSenderEl.textContent = topSender || "-";
+
       resultsEl.style.display = "block";
       setStatus("Berhasil memproses file ✅", "ok");
+    }
+
+    function openStoryView() {
+      if (resultsEl.style.display === "none" || !resultsEl.style.display) {
+        setStatus("Upload dan proses chat dulu sebelum membuat tampilan story.", "error");
+        return;
+      }
+      storyOverlay.classList.add("show");
+    }
+
+    function closeStoryView() {
+      storyOverlay.classList.remove("show");
+    }
+
+    // Tutup overlay jika klik di luar kartu
+    storyOverlay.addEventListener("click", (e) => {
+      if (e.target === storyOverlay) {
+        closeStoryView();
+      }
+    });
+
+    async function downloadStoryImage() {
+      if (!window.html2canvas || !storyCard) return;
+      try {
+        const canvas = await html2canvas(storyCard, {
+          backgroundColor: null,
+          scale: 2
+        });
+        const dataUrl = canvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.href = dataUrl;
+        link.download = "ninu-story.png";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (err) {
+        console.error(err);
+        setStatus("Gagal membuat gambar story. Coba refresh halaman lalu ulangi.", "error");
+      }
+    }
+
+    function shareStory() {
+      const total = storyTotalEl.textContent || "0";
+      const days = storyDaysEl.textContent || "0";
+      const avg = storyAvgEl.textContent || "0";
+      const top = storyTopSenderEl.textContent || "-";
+
+      const text =
+        `Statistik chat aku dari ninu 💌\n\n` +
+        `Total pesan: ${total}\n` +
+        `Hari aktif: ${days}\n` +
+        `Rata-rata / hari: ${avg}\n` +
+        `Paling bawel: ${top}\n\n` +
+        `Dibuat dengan ninu (WhatsApp chat analyzer).`;
+
+      if (navigator.share) {
+        navigator.share({ text })
+          .catch(() => { /* user batal, abaikan */ });
+      } else {
+        // Fallback: share via WhatsApp teks
+        const waUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent(text);
+        window.open(waUrl, "_blank");
+      }
     }
   </script>
 </body>
